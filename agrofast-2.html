@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#16241A">
+<title>AgroFast 2.0 · Registro por voz y foto para comerciantes de Corabastos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<style>
+:root{
+  --af-ink:#16241A; --af-ink-2:#22352A; --af-green:#2F6B3F; --af-green-2:#3E8A52; --af-green-soft:#E6F0E7;
+  --af-harvest:#E9A923; --af-harvest-soft:#FCF1DA; --af-clay:#C0562F; --af-clay-soft:#F8E6DE; --af-blue:#2E6CA8; --af-blue-soft:#E3EEF8;
+  --af-paper:#F5F3EE; --af-line:#E8E3D8; --af-muted:#6B7466;
+  --bs-body-font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --bs-body-bg:var(--af-paper); --bs-body-color:#1D2620; --bs-border-color:var(--af-line);
+  --bs-primary:#2F6B3F; --bs-primary-rgb:47,107,63; --bs-success:#2F6B3F; --bs-success-rgb:47,107,63;
+  --bs-link-color:#2F6B3F; --bs-link-hover-color:#24552F; --bs-border-radius:.65rem; --bs-border-radius-lg:1rem;
+  --bs-primary-bg-subtle:var(--af-blue-soft); --bs-primary-text-emphasis:#1F4E7A;
+  --bs-success-bg-subtle:var(--af-green-soft); --bs-success-text-emphasis:#24552F;
+  --bs-warning-bg-subtle:var(--af-harvest-soft); --bs-warning-text-emphasis:#86600F;
+  --bs-danger-bg-subtle:var(--af-clay-soft); --bs-danger-text-emphasis:#9A3F1E; --bs-danger:#C0562F; --bs-danger-rgb:192,86,47;
+  --sidebar-w:250px;
+}
+body{min-height:100vh;-webkit-font-smoothing:antialiased}
+.btn{font-weight:600;border-radius:.65rem}
+.btn-primary,.btn-success{--bs-btn-bg:var(--af-green);--bs-btn-border-color:var(--af-green);--bs-btn-hover-bg:#24552F;--bs-btn-hover-border-color:#24552F;--bs-btn-active-bg:#1E4727;--bs-btn-active-border-color:#1E4727;--bs-btn-disabled-bg:var(--af-green);--bs-btn-disabled-border-color:var(--af-green)}
+.btn-outline-primary{--bs-btn-color:var(--af-green);--bs-btn-border-color:var(--af-green);--bs-btn-hover-bg:var(--af-green);--bs-btn-hover-border-color:var(--af-green);--bs-btn-active-bg:var(--af-green)}
+.btn-wa{--bs-btn-bg:#1DA851;--bs-btn-color:#fff;--bs-btn-border-color:#1DA851;--bs-btn-hover-bg:#178C43;--bs-btn-hover-color:#fff;--bs-btn-hover-border-color:#178C43}
+.btn-harvest{--bs-btn-bg:var(--af-harvest);--bs-btn-color:var(--af-ink);--bs-btn-border-color:var(--af-harvest);--bs-btn-hover-bg:#D99A16;--bs-btn-hover-color:var(--af-ink);--bs-btn-hover-border-color:#D99A16}
+.form-control,.form-select{border-radius:.6rem;border-color:#DDD6C8}
+.form-control:focus,.form-select:focus{border-color:var(--af-green-2);box-shadow:0 0 0 .2rem rgba(47,107,63,.15)}
+.form-check-input:checked{background-color:var(--af-green);border-color:var(--af-green)}
+.inferred{background:#FFF6DC!important;border-color:#EAC25A!important}
+.card{--bs-card-bg:#fff;border:1px solid var(--af-line);border-radius:1rem;box-shadow:0 1px 2px rgba(22,36,26,.04)}
+.card-header{background:transparent;border-bottom:1px solid var(--af-line);padding:1rem 1.25rem;font-weight:700}
+.card-title-sm{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--af-muted)}
+
+/* ---------- layout ---------- */
+.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar-w);background:var(--af-ink);color:#E9EEE7;padding:1.25rem 1rem;z-index:1030}
+.brand{display:flex;align-items:center;gap:.65rem;padding:.25rem .5rem 1.25rem}
+.brand-logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--af-harvest),#F4C55A);display:grid;place-items:center;color:var(--af-ink);font-size:1.3rem}
+.brand-name{font-weight:800;font-size:1.25rem;letter-spacing:-.02em;line-height:1}
+.brand-sub{font-size:.72rem;color:#9FB09F}
+.side-link{display:flex;align-items:center;gap:.75rem;width:100%;border:0;background:transparent;color:#C8D3C6;padding:.7rem .85rem;border-radius:.7rem;font-weight:600;font-size:.95rem;text-align:left;transition:background .15s,color .15s}
+.side-link i{font-size:1.1rem;width:1.25rem;text-align:center}
+.side-link:hover{background:rgba(255,255,255,.06);color:#fff}
+.side-link.active{background:var(--af-green);color:#fff;box-shadow:0 6px 16px rgba(0,0,0,.18)}
+.side-section{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#7F917F;margin:1rem .85rem .35rem}
+.side-card{margin-top:auto;background:var(--af-ink-2);border-radius:1rem;padding:1rem;font-size:.8rem;color:#B9C6B7}
+.side-card b{color:#fff}
+.main{min-height:100vh}
+@media (min-width:992px){.main{margin-left:var(--sidebar-w)}}
+.topbar{background:rgba(245,243,238,.88);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--af-line);padding:.9rem 1.5rem;z-index:1020}
+.topbar h1{font-size:1.4rem;font-weight:800;letter-spacing:-.02em;margin:0}
+.topbar .date{font-size:.82rem;color:var(--af-muted)}
+.topbar .date::first-letter{text-transform:uppercase}
+.badge-ai{background:var(--af-harvest-soft);color:#86600F;border:1px solid #F1DDA8;font-weight:700}
+main.content{padding:1.5rem;max-width:1320px}
+@media (max-width:991.98px){main.content{padding:1rem 1rem 6.5rem}.topbar{padding:.75rem 1rem}}
+section.view{display:none;animation:fade .2s ease}
+section.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* bottom nav (celular) */
+.bottomnav{background:#fff;border-top:1px solid var(--af-line);box-shadow:0 -6px 20px rgba(22,36,26,.06);padding:.35rem .5rem calc(.35rem + env(safe-area-inset-bottom));display:flex;justify-content:space-around;align-items:flex-end}
+.bn-link{border:0;background:none;color:var(--af-muted);display:flex;flex-direction:column;align-items:center;gap:.1rem;font-size:.68rem;font-weight:600;padding:.35rem .5rem;flex:1}
+.bn-link i{font-size:1.25rem}
+.bn-link.active{color:var(--af-green)}
+.bn-mic.listening,#fab.listening{background:var(--af-harvest)!important;color:var(--af-ink)!important;animation:pulse 1.2s infinite}
+.bn-mic{width:60px;height:60px;border-radius:50%;border:4px solid #fff;background:var(--af-green);color:#fff;font-size:1.5rem;margin-top:-26px;box-shadow:0 8px 20px rgba(47,107,63,.4);flex:0 0 auto}
+
+/* ---------- componentes ---------- */
+.kpi .card-body{padding:1.1rem 1.2rem}
+.kpi-label{font-size:.78rem;font-weight:700;color:var(--af-muted);text-transform:uppercase;letter-spacing:.05em}
+.kpi-value{font-size:1.75rem;font-weight:800;letter-spacing:-.02em;margin-top:.35rem;line-height:1.1}
+.kpi-sub{font-size:.82rem;color:var(--af-muted);margin-top:.25rem}
+@media (max-width:575.98px){.kpi-value{font-size:1.3rem}.kpi-label{font-size:.68rem}.kpi .ic{width:30px;height:30px;font-size:.9rem;border-radius:9px}.kpi .card-body{padding:.9rem}.topbar h1{font-size:1.15rem}}
+.items-table select{min-width:150px}.items-table input{min-width:90px}
+.ic{width:38px;height:38px;border-radius:11px;display:inline-grid;place-items:center;font-size:1.1rem;flex:0 0 auto}
+.ic-green{background:var(--af-green-soft);color:var(--af-green)}
+.ic-clay{background:var(--af-clay-soft);color:var(--af-clay)}
+.ic-harvest{background:var(--af-harvest-soft);color:#B47E0B}
+.ic-blue{background:var(--af-blue-soft);color:var(--af-blue)}
+.rank{width:28px;height:28px;border-radius:8px;background:var(--af-harvest-soft);color:#86600F;font-weight:800;display:inline-grid;place-items:center;font-size:.85rem;flex:0 0 auto}
+.rank-muted{background:#F0EEE8;color:var(--af-muted)}
+.rank-sm{width:24px;height:24px;font-size:.75rem}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--af-clay-soft);color:var(--af-clay);font-weight:800;display:inline-grid;place-items:center;flex:0 0 auto;text-transform:uppercase}
+.avatar-muted{background:#EFEDE7;color:var(--af-muted)}
+.empty{color:var(--af-muted);text-align:center;padding:1.5rem .5rem;font-size:.9rem}
+.empty i{font-size:1.8rem;display:block;margin-bottom:.35rem;opacity:.55}
+.table{--bs-table-bg:transparent;margin-bottom:0}
+.table thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--af-muted);font-weight:700;border-bottom-width:1px;white-space:nowrap;background:#FAF9F6}
+.table td{padding-top:.7rem;padding-bottom:.7rem}
+.table-card .card-body{padding:0}
+.table-card .table thead th:first-child,.table-card .table td:first-child{padding-left:1.25rem}
+.table-card .table thead th:last-child,.table-card .table td:last-child{padding-right:1.25rem}
+.items-table thead th{background:transparent}
+.nav-pills.subtabs{background:#ECE8DF;border-radius:.8rem;padding:.3rem;display:inline-flex;gap:.25rem;flex-wrap:wrap}
+.nav-pills.subtabs .nav-link{color:var(--af-muted);font-weight:600;border-radius:.6rem;padding:.45rem .95rem;font-size:.9rem}
+.nav-pills.subtabs .nav-link.active{background:#fff;color:var(--af-ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.sub{display:none}.sub.active{display:block}
+
+/* micrófono */
+.mic-hero{background:radial-gradient(120% 120% at 0% 0%,#3E8A52 0%,#2F6B3F 45%,#1D4A2A 100%);color:#fff;border:0;overflow:hidden;overflow:clip;position:relative}
+.mic-hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.06)}
+.mic-btn{width:112px;height:112px;border-radius:50%;border:0;background:#fff;color:var(--af-green);font-size:2.9rem;display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:transform .15s;position:relative;z-index:1}
+.mic-btn:hover{transform:scale(1.04)}
+.mic-btn.listening{background:var(--af-harvest);color:var(--af-ink);animation:pulse 1.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(233,169,35,.65)}70%{box-shadow:0 0 0 26px rgba(233,169,35,0)}100%{box-shadow:0 0 0 0 rgba(233,169,35,0)}}
+.transcript{font-size:1.25rem;font-weight:700;min-height:1.9rem;position:relative;z-index:1}
+.transcript .interim{opacity:.7}
+.mic-hero .form-control{background:rgba(255,255,255,.95);border:0}
+.chip{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);color:#fff;border-radius:99px;padding:.3rem .8rem;font-size:.8rem;font-weight:600;transition:background .15s}
+.chip:hover{background:rgba(255,255,255,.22)}
+.prop{border-left:5px solid var(--af-harvest)!important}
+.prop-entrada{border-left-color:var(--af-blue)!important}.prop-merma{border-left-color:#9AA39A!important}.prop-abono{border-left-color:var(--af-harvest)!important}.prop-venta{border-left-color:var(--af-green)!important}
+.frase{background:#F7F5F0;border-radius:.6rem;padding:.55rem .8rem;font-size:.92rem;color:#3B463E;font-style:italic}
+.preview{max-width:100%;border:1px solid var(--af-line);border-radius:.75rem;display:block}
+.timer{font-size:3rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.toast-af{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--af-ink);color:#fff;padding:.8rem 1.2rem;border-radius:.9rem;font-weight:600;z-index:1090;max-width:92vw;box-shadow:0 12px 30px rgba(0,0,0,.25);display:flex;gap:.5rem;align-items:center}
+@media (max-width:991.98px){.toast-af{bottom:96px}}
+.neg{color:var(--af-clay)}
+#printArea{display:none}
+@media print{body>*{display:none!important}#printArea{display:block!important;font-family:Arial,sans-serif;color:#000}#printArea h1{font-size:20px}#printArea h2{font-size:15px;margin:14px 0 6px}#printArea table{font-size:11px;border:1px solid #999;width:100%;border-collapse:collapse}#printArea th{background:#eee}#printArea td,#printArea th{padding:4px 6px;border-bottom:1px solid #ccc;text-align:left}}
+</style>
+</head>
+<body>
+
+<!-- ============ Barra lateral (computador) ============ -->
+<aside class="sidebar d-none d-lg-flex flex-column">
+  <div class="brand"><span class="brand-logo"><i class="bi bi-basket2-fill"></i></span><div><div class="brand-name">AgroFast</div><div class="brand-sub">Corabastos · v2.0</div></div></div>
+  <nav id="nav" class="d-flex flex-column gap-1">
+    <div class="side-section">Operación</div>
+    <button class="side-link active" data-view="inicio"><i class="bi bi-speedometer2"></i> Inicio</button>
+    <button class="side-link" data-view="registrar"><i class="bi bi-mic-fill"></i> Registrar</button>
+    <button class="side-link" data-view="inventario"><i class="bi bi-box-seam"></i> Inventario</button>
+    <button class="side-link" data-view="clientes"><i class="bi bi-people-fill"></i> Clientes y fiados</button>
+    <div class="side-section">Análisis</div>
+    <button class="side-link" data-view="reportes"><i class="bi bi-graph-up-arrow"></i> Reportes</button>
+    <button class="side-link" data-view="medicion"><i class="bi bi-stopwatch"></i> Medición</button>
+    <button class="side-link" data-view="ajustes"><i class="bi bi-gear"></i> Ajustes</button>
+  </nav>
+  <div class="side-card">
+    <div class="d-flex align-items-center gap-2 mb-1"><i class="bi bi-stars text-warning"></i><b>IA de voz y visión</b></div>
+    Dígalo como en el puesto o tómele foto a la remisión. Usted solo confirma.
+    <div class="mt-2 small" id="sideNegocio"></div>
+  </div>
+</aside>
+
+<div class="main">
+  <!-- ============ Barra superior ============ -->
+  <header class="topbar sticky-top d-flex align-items-center gap-3">
+    <span class="brand-logo d-lg-none" style="width:36px;height:36px;font-size:1.1rem"><i class="bi bi-basket2-fill"></i></span>
+    <div class="me-auto lh-sm"><h1 id="viewTitle">Resumen de hoy</h1><div class="date" id="viewDate"></div></div>
+    <span class="badge rounded-pill badge-ai d-none d-sm-inline-flex align-items-center gap-1 px-3 py-2"><i class="bi bi-stars"></i> IA · voz + foto</span>
+    <button class="btn btn-primary d-none d-lg-inline-flex align-items-center gap-2" id="fab"><i class="bi bi-mic-fill"></i> Dictar</button>
+  </header>
+
+  <main class="content mx-auto">
+  <!-- ================= INICIO ================= -->
+  <section id="v-inicio" class="view active">
+    <div id="alertasInicio"></div>
+    <div class="row g-3">
+      <div class="col-6 col-xl-3"><div class="card kpi h-100"><div class="card-body"><div class="d-flex justify-content-between align-items-start"><span class="kpi-label">Vendido hoy</span><span class="ic ic-green"><i class="bi bi-cash-stack"></i></span></div><div class="kpi-value" id="kVendido">$0</div><div class="kpi-sub" id="kVendidoS"></div></div></div></div>
+      <div class="col-6 col-xl-3"><div class="card kpi h-100"><div class="card-body"><div class="d-flex justify-content-between align-items-start"><span class="kpi-label">Ganancia hoy</span><span class="ic ic-green"><i class="bi bi-graph-up-arrow"></i></span></div><div class="kpi-value text-success" id="kGanancia">$0</div><div class="kpi-sub" id="kGananciaS"></div></div></div></div>
+      <div class="col-6 col-xl-3"><div class="card kpi h-100"><div class="card-body"><div class="d-flex justify-content-between align-items-start"><span class="kpi-label">Por cobrar</span><span class="ic ic-clay"><i class="bi bi-credit-card-2-front"></i></span></div><div class="kpi-value text-danger" id="kCartera">$0</div><div class="kpi-sub" id="kCarteraS"></div></div></div></div>
+      <div class="col-6 col-xl-3"><div class="card kpi h-100"><div class="card-body"><div class="d-flex justify-content-between align-items-start"><span class="kpi-label">Merma del mes</span><span class="ic ic-harvest"><i class="bi bi-trash3"></i></span></div><div class="kpi-value" id="kMerma">$0</div><div class="kpi-sub" id="kMermaS"></div></div></div></div>
+    </div>
+
+    <div class="row g-3 mt-0">
+      <div class="col-lg-8"><div class="card h-100"><div class="card-header d-flex align-items-center"><span>Ventas de los últimos 7 días</span><span class="ms-auto fw-bold text-success" id="chart7Total"></span></div><div class="card-body pt-2" id="chart7"></div></div></div>
+      <div class="col-lg-4"><div class="card h-100"><div class="card-header">Lo que más deja hoy</div><div class="card-body py-2" id="topHoy"></div></div></div>
+    </div>
+
+    <div class="row g-3 mt-0">
+      <div class="col-lg-6"><div class="card h-100"><div class="card-header d-flex align-items-center gap-2"><i class="bi bi-robot text-success"></i> Cobros sugeridos <span class="badge rounded-pill bg-danger ms-1" id="cobrosN"></span></div><div class="card-body py-1" id="cobrosSug"></div></div></div>
+      <div class="col-lg-6"><div class="card h-100"><div class="card-header d-flex align-items-center gap-2"><i class="bi bi-exclamation-triangle text-warning"></i> Por agotarse <span class="badge rounded-pill bg-warning text-dark ms-1" id="stockN"></span></div><div class="card-body py-1" id="stockBajo"></div></div></div>
+    </div>
+
+    <div class="card mt-3 mic-hero"><div class="card-body p-4 d-flex flex-column flex-md-row align-items-md-center gap-3">
+      <div class="flex-grow-1" style="position:relative;z-index:1"><div class="fw-bold fs-5">¿Terminó el día?</div><div class="opacity-75">Mande el resumen al contador por WhatsApp o dicte una venta nueva.</div></div>
+      <div class="d-flex gap-2 flex-wrap" style="position:relative;z-index:1">
+        <button class="btn btn-harvest" data-go="registrar"><i class="bi bi-mic-fill"></i> Registrar por voz</button>
+        <button class="btn btn-light" id="btnCierre"><i class="bi bi-whatsapp"></i> Cierre del día</button>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ================= REGISTRAR ================= -->
+  <section id="v-registrar" class="view">
+    <div class="row g-4">
+      <div class="col-xl-5">
+        <ul class="nav nav-pills subtabs mb-3" data-group="reg">
+          <li class="nav-item"><button class="nav-link active" data-sub="reg-voz"><i class="bi bi-mic-fill"></i> Voz</button></li>
+          <li class="nav-item"><button class="nav-link" data-sub="reg-foto"><i class="bi bi-camera-fill"></i> Foto</button></li>
+          <li class="nav-item"><button class="nav-link" data-sub="reg-form"><i class="bi bi-pencil-square"></i> Formulario</button></li>
+        </ul>
+
+        <div id="reg-voz" class="sub active">
+          <div class="card mic-hero"><div class="card-body p-4 p-md-5 text-center d-flex flex-column align-items-center gap-3">
+            <div style="position:relative;z-index:1"><div class="fw-bold fs-5">Dígalo como en el puesto</div><div class="small opacity-75">AgroFast entiende producto, cantidad, unidad, cliente, precio y si fue fiado.</div></div>
+            <button id="micBtn" class="mic-btn" aria-label="Hablar"><i class="bi bi-mic-fill"></i></button>
+            <div id="micEstado" class="small" style="position:relative;z-index:1;opacity:.85">Toque el micrófono y hable</div>
+            <div id="avisoArchivo" class="alert alert-warning small text-start mb-0" style="position:relative;z-index:1" hidden><i class="bi bi-shield-lock-fill"></i> Está abriendo AgroFast como <b>archivo</b> del computador. Chrome no guarda el permiso del micrófono para archivos y lo pedirá cada vez que se active. Para que lo recuerde, ábralo desde un enlace <b>https</b> (por ejemplo GitHub Pages) o desde <b>http://localhost</b>.</div>
+            <div id="transcript" class="transcript"></div>
+            <div class="input-group w-100" style="max-width:560px;position:relative;z-index:1">
+              <input id="fraseInput" class="form-control form-control-lg" placeholder='O escriba: "le fié 5 bultos de papa a doña Rosa a 55 mil"'>
+              <button class="btn btn-harvest px-4" id="fraseBtn"><i class="bi bi-magic"></i> Entender</button>
+            </div>
+            <div class="small opacity-75" style="position:relative;z-index:1">Ejemplos para probar (no cuentan en la medición)</div>
+            <div class="d-flex flex-wrap gap-2 justify-content-center" id="chipsEjemplo" style="position:relative;z-index:1"></div>
+          </div></div>
+        </div>
+
+        <div id="reg-foto" class="sub">
+          <div class="card"><div class="card-body p-4">
+            <label class="form-label fw-semibold" for="fotoModo">¿Qué es la foto?</label>
+            <select id="fotoModo" class="form-select mb-3"><option value="entrada">Remisión o factura de un proveedor (entra mercancía)</option><option value="venta">Página del cuaderno de ventas</option></select>
+            <div class="d-flex gap-2 flex-wrap">
+              <label class="btn btn-primary mb-0" for="fotoFile"><i class="bi bi-camera-fill"></i> Tomar o subir foto</label>
+              <input type="file" id="fotoFile" accept="image/*" capture="environment" hidden>
+              <button id="fotoEjemplo" class="btn btn-outline-primary"><i class="bi bi-receipt"></i> Usar remisión de ejemplo</button>
+            </div>
+            <div class="progress mt-3" id="ocrProg" hidden style="height:8px"><span class="progress-bar" style="width:0;background:var(--af-harvest)"></span></div>
+            <div id="ocrEstado" class="small text-body-secondary mt-2"></div>
+            <div class="row g-3 mt-1">
+              <div class="col-md-6" id="fotoPreview"><div class="empty border rounded-3"><i class="bi bi-image"></i>La imagen aparecerá aquí</div></div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold" for="ocrTexto">Texto que leyó la IA (puede corregirlo)</label>
+                <textarea id="ocrTexto" rows="8" class="form-control" placeholder="Aquí aparece el texto reconocido…"></textarea>
+                <button id="ocrInterpretar" class="btn btn-primary w-100 mt-2"><i class="bi bi-magic"></i> Interpretar líneas</button>
+              </div>
+            </div>
+            <p class="small text-body-secondary mt-3 mb-0"><i class="bi bi-info-circle"></i> La lectura (OCR) se hace en este dispositivo con Tesseract; la primera vez descarga el modelo de español. Funciona con texto impreso. La letra a mano requiere un modelo de visión en la nube (fase 2).</p>
+          </div></div>
+        </div>
+
+        <div id="reg-form" class="sub">
+          <form id="formVenta" class="card" autocomplete="off"><div class="card-body p-4">
+            <div class="row g-3">
+              <div class="col-md-6"><label class="form-label small fw-semibold" for="fCliente">Cliente</label><input id="fCliente" list="dlClientes" class="form-control" placeholder="Cliente de mostrador"></div>
+              <div class="col-md-6"><label class="form-label small fw-semibold" for="fProducto">Producto *</label><select id="fProducto" class="form-select" required></select></div>
+              <div class="col-6 col-md-4"><label class="form-label small fw-semibold" for="fCantidad">Cantidad *</label><input id="fCantidad" type="number" step="0.01" min="0.01" class="form-control" required></div>
+              <div class="col-6 col-md-3"><label class="form-label small fw-semibold">Unidad</label><input id="fUnidad" class="form-control" disabled></div>
+              <div class="col-md-5"><label class="form-label small fw-semibold" for="fPrecio">Precio por unidad *</label><div class="input-group"><span class="input-group-text">$</span><input id="fPrecio" type="number" step="1" min="1" class="form-control" required></div></div>
+              <div class="col-md-4"><label class="form-label small fw-semibold" for="fTipo">Tipo</label><select id="fTipo" class="form-select"><option value="contado">De contado</option><option value="credito">Fiado (crédito)</option></select></div>
+              <div class="col-md-4"><label class="form-label small fw-semibold" for="fMedio">Medio de pago</label><select id="fMedio" class="form-select"></select></div>
+              <div class="col-md-4"><label class="form-label small fw-semibold" for="fFecha">Fecha</label><input id="fFecha" type="date" class="form-control"></div>
+            </div>
+            <div class="d-flex gap-2 mt-4"><button class="btn btn-primary" type="submit"><i class="bi bi-check-lg"></i> Registrar venta</button><button type="reset" class="btn btn-outline-secondary">Limpiar</button></div>
+          </div></form>
+        </div>
+      </div>
+
+      <div class="col-xl-7">
+        <div class="d-flex align-items-center gap-2 mb-3" style="min-height:42px"><h2 class="h5 fw-bold mb-0" id="propTitulo">Revise y confirme</h2><span class="badge rounded-pill bg-warning text-dark" id="propCount" hidden></span></div>
+        <div id="respuesta"></div>
+        <div id="propVacio" class="card"><div class="card-body"><div class="empty py-5"><i class="bi bi-chat-square-text"></i>Lo que diga o fotografíe aparecerá aquí para que lo revise.<br><span class="small">Lo que la IA supuso se resalta en <span class="px-1 rounded" style="background:#FFF6DC">amarillo</span>.</span></div></div></div>
+        <div id="propuestas"></div>
+      </div>
+    </div>
+
+    <div class="card table-card mt-4"><div class="card-header">Últimos registros</div><div class="card-body"><div class="table-responsive"><table class="table table-hover align-middle"><thead><tr><th>Fecha</th><th>Tipo</th><th>Detalle</th><th class="text-end">Valor</th><th>Cómo</th><th></th></tr></thead><tbody id="ultimos"></tbody></table></div></div></div>
+  </section>
+
+  <!-- ================= INVENTARIO ================= -->
+  <section id="v-inventario" class="view">
+    <div class="d-flex flex-wrap align-items-center gap-3 mb-3">
+      <ul class="nav nav-pills subtabs" data-group="inv">
+        <li class="nav-item"><button class="nav-link active" data-sub="inv-exist"><i class="bi bi-boxes"></i> Existencias</button></li>
+        <li class="nav-item"><button class="nav-link" data-sub="inv-prod"><i class="bi bi-tags"></i> Productos</button></li>
+        <li class="nav-item"><button class="nav-link" data-sub="inv-conteo"><i class="bi bi-clipboard-check"></i> Conteo físico</button></li>
+        <li class="nav-item"><button class="nav-link" data-sub="inv-mov"><i class="bi bi-arrow-left-right"></i> Movimientos</button></li>
+      </ul>
+    </div>
+    <div id="inv-exist" class="sub active">
+      <div class="card table-card"><div class="card-header d-flex flex-wrap gap-2 align-items-center"><span class="me-auto">Existencias</span><div class="input-group input-group-sm" style="max-width:280px"><span class="input-group-text bg-white"><i class="bi bi-search"></i></span><input id="buscarInv" class="form-control" placeholder="Buscar producto…"></div></div>
+      <div class="card-body"><div class="table-responsive"><table class="table table-hover align-middle"><thead><tr><th>Producto</th><th class="text-end">Existencia</th><th class="text-end">Costo</th><th class="text-end">Venta</th><th class="text-end">Margen</th><th class="text-end">Mínimo</th><th>Estado</th><th></th></tr></thead><tbody id="tInv"></tbody></table></div></div></div>
+    </div>
+    <div id="inv-prod" class="sub">
+      <div class="row g-3">
+        <div class="col-lg-5">
+          <form id="formProducto" class="card" autocomplete="off"><div class="card-body p-4">
+            <h2 class="h6 fw-bold mb-3" id="prodFormTitulo">Agregar producto</h2>
+            <input type="hidden" id="pId">
+            <div class="row g-2">
+              <div class="col-12"><label class="form-label small fw-semibold" for="pNombre">Nombre *</label><input id="pNombre" class="form-control" required placeholder="Ej: Papa sabanera"></div>
+              <div class="col-12"><label class="form-label small fw-semibold" for="pAlias">Otros nombres (separados por coma)</label><input id="pAlias" class="form-control" placeholder="Ej: papa, pastusa"></div>
+              <div class="col-6"><label class="form-label small fw-semibold" for="pUnidad">Unidad *</label><select id="pUnidad" class="form-select" required><option value="costales">Bultos / costales</option><option value="kg">Kilogramos</option><option value="canastillas">Canastillas / cajas</option><option value="paquetes">Paquetes</option><option value="unidades">Unidades</option></select></div>
+              <div class="col-6"><label class="form-label small fw-semibold" for="pPeso">Kg por unidad</label><input id="pPeso" type="number" step="0.1" class="form-control" placeholder="Ej: 50"></div>
+              <div class="col-6"><label class="form-label small fw-semibold" for="pCantidad">Existencia *</label><input id="pCantidad" type="number" step="0.01" class="form-control" required></div>
+              <div class="col-6"><label class="form-label small fw-semibold" for="pMin">Mínimo (alerta)</label><input id="pMin" type="number" step="0.01" value="0" class="form-control"></div>
+              <div class="col-6"><label class="form-label small fw-semibold" for="pCosto">Costo por unidad *</label><input id="pCosto" type="number" step="1" class="form-control" required></div>
+              <div class="col-6"><label class="form-label small fw-semibold" for="pVenta">Venta por unidad *</label><input id="pVenta" type="number" step="1" class="form-control" required></div>
+            </div>
+            <p class="small text-body-secondary mt-2 mb-3">«Kg por unidad» permite que la voz entienda arrobas, kilos o libras aunque el producto se maneje en bultos.</p>
+            <div class="d-flex gap-2"><button class="btn btn-primary" type="submit"><i class="bi bi-save"></i> Guardar</button><button type="button" class="btn btn-outline-secondary" id="pCancelar">Cancelar</button></div>
+          </div></form>
+        </div>
+        <div class="col-lg-7"><div class="card table-card"><div class="card-header">Productos registrados</div><div class="card-body"><div class="table-responsive"><table class="table table-hover align-middle"><thead><tr><th>Producto</th><th>Otros nombres</th><th>Unidad</th><th class="text-end">Kg/u</th><th></th></tr></thead><tbody id="tProd"></tbody></table></div></div></div></div>
+      </div>
+    </div>
+    <div id="inv-conteo" class="sub">
+      <div class="card table-card"><div class="card-header">Conteo físico</div><div class="card-body">
+        <p class="small text-body-secondary px-4 pt-3 mb-2">Cuente cada producto y escriba lo que encontró. AgroFast lo compara con lo registrado y calcula la <b>precisión del inventario</b> (indicador del objetivo 2).</p>
+        <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Producto</th><th class="text-end">Registrado</th><th>Unidad</th><th>Conteo físico</th></tr></thead><tbody id="tConteo"></tbody></table></div>
+        <div class="p-4 pt-3">
+          <div class="form-check mb-2"><input type="checkbox" class="form-check-input" id="conteoAjustar"><label class="form-check-label small" for="conteoAjustar">Ajustar el inventario a lo contado después de guardar</label></div>
+          <button class="btn btn-primary" id="btnConteo"><i class="bi bi-save"></i> Guardar conteo</button>
+          <div id="conteoRes" class="mt-3"></div>
+        </div>
+      </div></div>
+    </div>
+    <div id="inv-mov" class="sub">
+      <div class="card table-card"><div class="card-header">Movimientos de inventario</div><div class="card-body"><div class="table-responsive"><table class="table table-hover align-middle"><thead><tr><th>Fecha</th><th>Producto</th><th>Tipo</th><th class="text-end">Cantidad</th><th class="text-end">Queda</th><th>Motivo</th></tr></thead><tbody id="tMov"></tbody></table></div></div></div>
+    </div>
+  </section>
+
+  <!-- ================= CLIENTES ================= -->
+  <section id="v-clientes" class="view">
+    <div class="row g-3">
+      <div class="col-lg-4">
+        <div class="card mic-hero mb-3"><div class="card-body p-4"><div class="small opacity-75 text-uppercase fw-bold" style="letter-spacing:.06em">Total por cobrar</div><div class="display-6 fw-bold mt-1" id="carteraTotal">$0</div><div class="small opacity-75 mt-1">Fiados menos abonos. Los abonos se aplican primero a lo más antiguo.</div></div></div>
+        <div class="card mb-3"><div class="card-body p-4">
+          <h2 class="h6 fw-bold mb-3"><i class="bi bi-cash-coin text-warning"></i> Registrar abono</h2>
+          <div class="mb-2"><label class="form-label small fw-semibold" for="aCliente">Cliente</label><input id="aCliente" list="dlClientes" class="form-control"></div>
+          <div class="row g-2 mb-3"><div class="col-7"><label class="form-label small fw-semibold" for="aMonto">Monto</label><div class="input-group"><span class="input-group-text">$</span><input id="aMonto" type="number" step="1" class="form-control"></div></div><div class="col-5"><label class="form-label small fw-semibold" for="aMedio">Medio</label><select id="aMedio" class="form-select"></select></div></div>
+          <button class="btn btn-primary w-100" id="btnAbono"><i class="bi bi-check-lg"></i> Guardar abono</button>
+          <p class="small text-body-secondary mt-2 mb-0"><i class="bi bi-mic"></i> También por voz: «doña Rosa abonó 100 mil por Nequi».</p>
+        </div></div>
+        <div class="card"><div class="card-body p-4">
+          <h2 class="h6 fw-bold mb-3"><i class="bi bi-person-plus text-success"></i> Agregar o editar cliente</h2>
+          <div class="mb-2"><label class="form-label small fw-semibold" for="cNombre">Nombre</label><input id="cNombre" list="dlClientes" class="form-control" placeholder="Ej: Doña Rosa"></div>
+          <div class="mb-2"><label class="form-label small fw-semibold" for="cTel">Celular (WhatsApp)</label><input id="cTel" inputmode="tel" class="form-control" placeholder="3001234567"></div>
+          <div class="mb-3"><label class="form-label small fw-semibold" for="cNota">Nota</label><input id="cNota" class="form-control" placeholder="Ej: Restaurante El Fogón"></div>
+          <button class="btn btn-outline-primary w-100" id="btnCliente"><i class="bi bi-save"></i> Guardar cliente</button>
+        </div></div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card table-card"><div class="card-header">Cartera</div><div class="card-body"><div class="table-responsive"><table class="table table-hover align-middle"><thead><tr><th>Cliente</th><th class="text-end">Debe</th><th>Desde</th><th class="text-end">Días</th><th>Celular</th><th></th></tr></thead><tbody id="tCartera"></tbody></table></div></div></div>
+        <div class="card table-card mt-3" id="histCard" hidden><div class="card-header" id="histTitulo"></div><div class="card-body" id="histCliente"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REPORTES ================= -->
+  <section id="v-reportes" class="view">
+    <div class="card mb-3"><div class="card-body d-flex flex-wrap gap-2 align-items-center">
+      <i class="bi bi-calendar3 text-body-secondary"></i>
+      <select id="rPeriodo" class="form-select w-auto"><option value="hoy">Hoy</option><option value="7" selected>Últimos 7 días</option><option value="30">Últimos 30 días</option><option value="mes">Este mes</option><option value="rango">Rango…</option></select>
+      <span id="rRango" hidden><input type="date" id="rDesde" class="form-control d-inline-block w-auto"> <input type="date" id="rHasta" class="form-control d-inline-block w-auto"></span>
+      <div class="ms-auto d-flex gap-2"><button class="btn btn-primary" id="btnExcel"><i class="bi bi-file-earmark-excel"></i> Excel</button><button class="btn btn-outline-primary" id="btnPDF"><i class="bi bi-file-earmark-pdf"></i> PDF</button></div>
+    </div></div>
+    <div class="row g-3" id="rKpis"></div>
+    <div class="card table-card mt-3"><div class="card-header d-flex align-items-center"><span>Rentabilidad por producto</span><span class="ms-auto small text-body-secondary fw-normal">Los 5 primeros son los que más ganancia dejan</span></div><div class="card-body"><div class="table-responsive"><table class="table table-hover align-middle"><thead><tr><th>#</th><th>Producto</th><th class="text-end">Cantidad</th><th class="text-end">Ventas</th><th class="text-end">Ganancia</th><th class="text-end">Margen</th><th></th></tr></thead><tbody id="tRent"></tbody></table></div></div></div>
+    <div class="row g-3 mt-0">
+      <div class="col-lg-6"><div class="card h-100"><div class="card-header">¿Cómo se registró?</div><div class="card-body" id="rMetodo"></div></div></div>
+      <div class="col-lg-6"><div class="card h-100"><div class="card-header">Ventas por día</div><div class="card-body" id="rDias"></div></div></div>
+    </div>
+  </section>
+
+  <!-- ================= MEDICIÓN ================= -->
+  <section id="v-medicion" class="view">
+    <p class="text-body-secondary mb-3" style="max-width:820px">AgroFast mide cuánto tarda cada registro y cuántas veces hubo que corregir lo que entendió la IA. Las tablas empiezan vacías: solo muestran lo que realmente se midió en este dispositivo.</p>
+    <div class="row g-3">
+      <div class="col-md-6"><div class="card kpi h-100"><div class="card-body"><div class="d-flex justify-content-between"><span class="kpi-label">Ahorro de tiempo (objetivo 1)</span><span class="ic ic-green"><i class="bi bi-lightning-charge-fill"></i></span></div><div id="medHero"></div></div></div></div>
+      <div class="col-md-6"><div class="card kpi h-100"><div class="card-body"><div class="d-flex justify-content-between"><span class="kpi-label">Precisión del inventario (objetivo 2)</span><span class="ic ic-blue"><i class="bi bi-bullseye"></i></span></div><div id="medInv"></div></div></div></div>
+    </div>
+    <div class="card table-card mt-3"><div class="card-header">Resultados por método</div><div class="card-body" id="medResumen"></div></div>
+    <div class="row g-3 mt-0">
+      <div class="col-lg-7"><div class="card h-100"><div class="card-header">1 · Prueba guiada (10 operaciones)</div><div class="card-body">
+        <p class="small text-body-secondary">Haga las mismas 10 operaciones dos veces: primero escribiéndolas en un cuaderno con el cronómetro y luego dictándolas en <b>Registrar → Voz</b>.</p>
+        <ol class="list-group list-group-flush" id="guion10"></ol>
+      </div></div></div>
+      <div class="col-lg-5"><div class="card h-100"><div class="card-header">2 · Cronómetro del cuaderno</div><div class="card-body text-center">
+        <p class="small text-body-secondary">Inicie, escriba las operaciones en papel como siempre y detenga al terminar.</p>
+        <div class="timer" id="cronoVal">00:00</div>
+        <div class="mx-auto my-3" style="max-width:220px"><label class="form-label small fw-semibold" for="cronoN">Operaciones anotadas</label><input type="number" id="cronoN" value="10" min="1" class="form-control text-center"></div>
+        <div class="d-flex gap-2 justify-content-center"><button class="btn btn-primary btn-lg" id="cronoBtn"><i class="bi bi-play-fill"></i> Iniciar</button><button class="btn btn-outline-secondary btn-lg" id="cronoCancel">Cancelar</button></div>
+      </div></div></div>
+    </div>
+    <div class="card table-card mt-3"><div class="card-header d-flex flex-wrap gap-2 align-items-center"><span class="me-auto">Detalle de cada medición</span><button class="btn btn-sm btn-primary" id="btnMedExcel"><i class="bi bi-file-earmark-excel"></i> Descargar</button><button class="btn btn-sm btn-outline-danger" id="btnMedBorrar"><i class="bi bi-trash3"></i> Borrar</button></div><div class="card-body"><div class="table-responsive"><table class="table table-hover align-middle"><thead><tr><th>Fecha</th><th>Método</th><th class="text-end">Registros</th><th class="text-end">Segundos</th><th class="text-end">Seg/registro</th><th class="text-end">Correcciones</th><th>Frase</th></tr></thead><tbody id="tMed"></tbody></table></div></div></div>
+  </section>
+
+  <!-- ================= AJUSTES ================= -->
+  <section id="v-ajustes" class="view">
+    <div class="row g-3">
+      <div class="col-lg-6"><div class="card h-100"><div class="card-header"><i class="bi bi-shop"></i> Negocio</div><div class="card-body">
+        <div class="mb-3"><label class="form-label small fw-semibold" for="sNegocio">Nombre del puesto</label><input id="sNegocio" class="form-control"></div>
+        <div class="row g-2 mb-3"><div class="col-sm-7"><label class="form-label small fw-semibold" for="sContador">Celular del contador (WhatsApp)</label><input id="sContador" inputmode="tel" class="form-control"></div><div class="col-sm-5"><label class="form-label small fw-semibold" for="sDias">Sugerir cobro tras (días)</label><input id="sDias" type="number" min="1" class="form-control"></div></div>
+        <div class="form-check form-switch mb-3"><input type="checkbox" class="form-check-input" role="switch" id="sHablar"><label class="form-check-label" for="sHablar">Responder en voz alta al registrar</label></div>
+        <button class="btn btn-primary" id="btnAjustes"><i class="bi bi-save"></i> Guardar</button>
+      </div></div></div>
+      <div class="col-lg-6"><div class="card h-100"><div class="card-header"><i class="bi bi-database"></i> Datos</div><div class="card-body">
+        <p class="small text-body-secondary">Todo se guarda en este dispositivo; no se envía a ningún servidor. Haga respaldos.</p>
+        <div class="d-grid gap-2">
+          <button id="btnEjemplo" class="btn btn-outline-primary"><i class="bi bi-magic"></i> Cargar ventas de ejemplo (7 días)</button>
+          <button id="btnQuitarEjemplo" class="btn btn-outline-secondary"><i class="bi bi-eraser"></i> Quitar datos de ejemplo</button>
+          <div class="d-flex gap-2"><button id="btnRespaldo" class="btn btn-outline-secondary flex-fill"><i class="bi bi-download"></i> Respaldo (JSON)</button><label class="btn btn-outline-secondary flex-fill mb-0" for="fileRestaurar"><i class="bi bi-upload"></i> Restaurar</label><input type="file" id="fileRestaurar" accept="application/json" hidden></div>
+          <button class="btn btn-outline-danger" id="btnBorrarTodo"><i class="bi bi-trash3"></i> Borrar todo</button>
+        </div>
+      </div></div></div>
+      <div class="col-12"><div class="card"><div class="card-header"><i class="bi bi-stars text-warning"></i> Cómo funciona la IA</div><div class="card-body"><div class="row g-3">
+        <div class="col-md-6 col-xl-3"><div class="d-flex gap-3"><span class="ic ic-green"><i class="bi bi-mic-fill"></i></span><div class="small"><b class="d-block mb-1">Voz → texto</b>Reconocimiento de voz neuronal del navegador (español de Colombia). Pide 3 alternativas y elige la que mejor encaja con su catálogo.</div></div></div>
+        <div class="col-md-6 col-xl-3"><div class="d-flex gap-3"><span class="ic ic-blue"><i class="bi bi-cpu-fill"></i></span><div class="small"><b class="d-block mb-1">Texto → datos</b>Extractor en el dispositivo: intención, producto, cantidad en cifras o palabras («80 lucas», «un palo»), unidad y cliente.</div></div></div>
+        <div class="col-md-6 col-xl-3"><div class="d-flex gap-3"><span class="ic ic-harvest"><i class="bi bi-camera-fill"></i></span><div class="small"><b class="d-block mb-1">Foto → texto</b>OCR Tesseract (red neuronal LSTM) en el dispositivo, para remisiones impresas.</div></div></div>
+        <div class="col-md-6 col-xl-3"><div class="d-flex gap-3"><span class="ic ic-clay"><i class="bi bi-hand-index-thumb-fill"></i></span><div class="small"><b class="d-block mb-1">Usted confirma</b>Nada se guarda sin su toque. Lo que la IA supuso aparece resaltado en amarillo.</div></div></div>
+      </div></div></div></div>
+    </div>
+  </section>
+  </main>
+</div>
+
+<!-- ============ Navegación inferior (celular) ============ -->
+<nav class="bottomnav fixed-bottom d-lg-none" id="bottomnav">
+  <button class="bn-link active" data-view="inicio"><i class="bi bi-speedometer2"></i>Inicio</button>
+  <button class="bn-link" data-view="inventario"><i class="bi bi-box-seam"></i>Inventario</button>
+  <button class="bn-mic" id="fabM" aria-label="Registrar por voz"><i class="bi bi-mic-fill"></i></button>
+  <button class="bn-link" data-view="clientes"><i class="bi bi-people-fill"></i>Fiados</button>
+  <div class="dropup flex-fill d-flex">
+    <button class="bn-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots"></i>Más</button>
+    <ul class="dropdown-menu dropdown-menu-end shadow">
+      <li><button class="dropdown-item" data-view="registrar"><i class="bi bi-mic me-2"></i>Registrar</button></li>
+      <li><button class="dropdown-item" data-view="reportes"><i class="bi bi-graph-up-arrow me-2"></i>Reportes</button></li>
+      <li><button class="dropdown-item" data-view="medicion"><i class="bi bi-stopwatch me-2"></i>Medición</button></li>
+      <li><button class="dropdown-item" data-view="ajustes"><i class="bi bi-gear me-2"></i>Ajustes</button></li>
+    </ul>
+  </div>
+</nav>
+
+<datalist id="dlClientes"></datalist>
+<div id="printArea"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+'use strict';
+/* =========================================================
+   Utilidades
+   ========================================================= */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const COP = new Intl.NumberFormat('es-CO', {style:'currency', currency:'COP', maximumFractionDigits:0});
+const fmt = n => COP.format(Math.round(n || 0));
+const num = (n, d=2) => (Math.round((n || 0) * 10 ** d) / 10 ** d).toLocaleString('es-CO');
+const pct = n => (isFinite(n) ? (Math.round(n * 1000) / 10).toLocaleString('es-CO') : '0') + ' %';
+const pad = n => String(n).padStart(2, '0');
+const fechaLocal = (d = new Date()) => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const horaLocal = (d = new Date()) => `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+const addDays = (f, n) => { const d = new Date(f + 'T12:00:00'); d.setDate(d.getDate() + n); return fechaLocal(d); };
+const diasEntre = (a, b) => Math.round((new Date(b + 'T12:00:00') - new Date(a + 'T12:00:00')) / 86400000);
+const fechaCorta = f => { const [y,m,d] = f.split('-'); return `${d}/${m}`; };
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const strip = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+const UNIDAD_TXT = {costales:'bultos', kg:'kg', canastillas:'canastillas', paquetes:'paquetes', unidades:'unidades'};
+const MEDIOS = ['Efectivo','Nequi','Daviplata','Transferencia','Tarjeta'];
+const METODO_TXT = {voz:'<i class="bi bi-mic-fill"></i> Voz', foto:'<i class="bi bi-camera-fill"></i> Foto', formulario:'<i class="bi bi-pencil-square"></i> Formulario', texto:'<i class="bi bi-keyboard"></i> Texto', ejemplo:'<i class="bi bi-lightbulb"></i> Ejemplo', cuaderno:'<i class="bi bi-journal-text"></i> Cuaderno', datos:'<i class="bi bi-database"></i> Ejemplo'};
+
+function toast(msg, ms = 3200) {
+  document.querySelectorAll('.toast-af').forEach(x => x.remove());
+  const t = document.createElement('div'); t.className = 'toast-af'; t.appendChild(document.createTextNode(msg));
+  document.body.appendChild(t); setTimeout(() => t.remove(), ms);
+}
+function descargar(blob, nombre) {
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nombre;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+function hablar(texto) {
+  try {
+    if (!DB.data.ajustes.hablar || !('speechSynthesis' in window)) return;
+    const u = new SpeechSynthesisUtterance(texto); u.lang = 'es-CO';
+    const v = speechSynthesis.getVoices().find(v => /^es(-|_)CO/i.test(v.lang)) || speechSynthesis.getVoices().find(v => /^es/i.test(v.lang));
+    if (v) u.voice = v; speechSynthesis.cancel(); speechSynthesis.speak(u);
+  } catch (e) {}
+}
+
+/* =========================================================
+   Datos (localStorage)
+   ========================================================= */
+const KEY = 'agrofast2';
+const DEF_AJUSTES = {negocio:'Mi puesto en Corabastos', telContador:'', diasCobro:8, hablar:true};
+const COLS = ['productos','clientes','ventas','abonos','compras','mermas','movimientos','mediciones','conteos'];
+const DB = {
+  data: null,
+  load() {
+    let d = null;
+    try { d = JSON.parse(localStorage.getItem(KEY)); } catch (e) { d = null; }
+    if (!d) { d = {ajustes:{...DEF_AJUSTES}}; COLS.forEach(k => d[k] = []); this.data = d; this.seed(); this.migrarV1(); this.save(); }
+    this.usar(d);
+  },
+  usar(d) {
+    this.data = d;
+    d.ajustes = {...DEF_AJUSTES, ...(d.ajustes || {})};
+    COLS.forEach(k => { if (!Array.isArray(d[k])) d[k] = []; });
+  },
+  /* Si en este navegador se usó AgroFast 1.0, se traen sus productos y ventas */
+  migrarV1() {
+    try {
+      const prods = JSON.parse(localStorage.getItem('agrofast_productos') || '[]');
+      const ventas = JSON.parse(localStorage.getItem('agrofast_ventas') || '[]');
+      if (!prods.length) return;
+      this.data.productos = prods.map(p => ({id:String(p.id), nombre:p.nombre, alias:[], unidad:p.unidad || 'costales', pesoKg:p.unidad === 'kg' ? 1 : (p.unidad === 'costales' ? 50 : 0), cantidad:+p.cantidad || 0, precioCosto:+p.precioCosto || 0, precioVenta:+p.precioVenta || 0, stockMin:0}));
+      this.data.ventas = ventas.map(v => ({id:String(v.id), grupo:String(v.id), fecha:v.fecha, hora:'00:00', cliente:v.cliente, productoId:String(v.productoId), producto:v.productoNombre, cantidad:+v.cantidad, unidad:v.unidad, precioUnit:+v.precioVenta, total:+v.totalVenta, costo:(+v.totalVenta) - (+v.ganancia), ganancia:+v.ganancia, tipo:v.tipoVenta === 'credito' ? 'credito' : 'contado', medio:'', metodo:'formulario', frase:''}));
+      ventas.forEach(v => { if (!this.data.clientes.some(c => strip(c.nombre) === strip(v.cliente))) this.data.clientes.push({id:uid(), nombre:v.cliente, telefono:'', nota:''}); });
+    } catch (e) {}
+  },
+  save() { try { localStorage.setItem(KEY, JSON.stringify(this.data)); } catch (e) { /* modo sin almacenamiento: los datos viven en memoria */ } },
+  seed() {
+    const P = (nombre, alias, unidad, pesoKg, cantidad, precioCosto, precioVenta, stockMin) => ({id:uid(), nombre, alias, unidad, pesoKg, cantidad, precioCosto, precioVenta, stockMin});
+    this.data.productos = [
+      P('Papa sabanera', ['papa','pastusa','sabanera'], 'costales', 50, 50, 40000, 55000, 10),
+      P('Papa criolla', ['criolla'], 'costales', 50, 20, 45000, 62000, 5),
+      P('Yuca', [], 'costales', 50, 30, 30000, 42000, 8),
+      P('Arroz', [], 'costales', 50, 40, 80000, 110000, 8),
+      P('Maíz', ['mais'], 'costales', 50, 25, 35000, 50000, 5),
+      P('Cebolla cabezona', ['cebolla'], 'kg', 1, 200, 2000, 3500, 40),
+      P('Tomate chonto', ['tomate'], 'canastillas', 25, 30, 48000, 60000, 6),
+    ];
+    const C = (nombre, nota) => ({id:uid(), nombre, telefono:'', nota});
+    this.data.clientes = [C('Doña Rosa','Restaurante El Fogón'), C('Don Pedro','Tienda La Esquina'), C('Doña Marta','Fruver de barrio'), C('Fruver El Paisa','Fruver')];
+  }
+};
+const D = () => DB.data;
+const prodById = id => D().productos.find(p => p.id === id);
+
+function mov(p, tipo, cantidad, motivo, extra = {}) {
+  D().movimientos.push({id:uid(), ts:new Date().toISOString(), fecha:fechaLocal(), productoId:p.id, producto:p.nombre, tipo, cantidad, resultante:p.cantidad, unidad:p.unidad, motivo, ...extra});
+}
+function asegurarCliente(nombre) {
+  if (!nombre || strip(nombre) === 'cliente de mostrador') return;
+  if (!D().clientes.some(c => strip(c.nombre) === strip(nombre))) D().clientes.push({id:uid(), nombre, telefono:'', nota:''});
+}
+
+/* Cartera: fiados − abonos, abonos aplicados a lo más antiguo (FIFO) */
+function cartera() {
+  const nombres = new Map();
+  D().ventas.filter(v => v.tipo === 'credito').forEach(v => nombres.set(strip(v.cliente), v.cliente));
+  D().abonos.forEach(a => { if (!nombres.has(strip(a.cliente))) nombres.set(strip(a.cliente), a.cliente); });
+  const hoy = fechaLocal();
+  const out = [];
+  for (const [k, nombre] of nombres) {
+    const fiados = D().ventas.filter(v => v.tipo === 'credito' && strip(v.cliente) === k).sort((a, b) => (a.fecha + a.hora).localeCompare(b.fecha + b.hora));
+    const totalFiado = fiados.reduce((s, v) => s + v.total, 0);
+    const abonado = D().abonos.filter(a => strip(a.cliente) === k).reduce((s, a) => s + a.monto, 0);
+    let resto = abonado, desde = null;
+    for (const v of fiados) { if (resto >= v.total - 0.5) resto -= v.total; else { desde = v.fecha; break; } }
+    const deuda = totalFiado - abonado;
+    const cli = D().clientes.find(c => strip(c.nombre) === k);
+    out.push({nombre: cli ? cli.nombre : nombre, deuda, desde, dias: desde ? diasEntre(desde, hoy) : 0, cliente: cli, ultimo: fiados.length ? fiados[fiados.length - 1].fecha : null});
+  }
+  return out.filter(c => c.deuda > 0.5).sort((a, b) => b.deuda - a.deuda);
+}
+const deudaDe = nombre => (cartera().find(c => strip(c.nombre) === strip(nombre)) || {deuda:0}).deuda;
+
+/* =========================================================
+   IA de lenguaje: extractor de operaciones en español colombiano
+   ========================================================= */
+const NLU = (() => {
+  const NUMW = {cero:0,un:1,uno:1,una:1,dos:2,tres:3,cuatro:4,cinco:5,seis:6,siete:7,ocho:8,nueve:9,diez:10,once:11,doce:12,trece:13,catorce:14,quince:15,dieciseis:16,diecisiete:17,dieciocho:18,diecinueve:19,veinte:20,veintiun:21,veintiuno:21,veintiuna:21,veintidos:22,veintitres:23,veinticuatro:24,veinticinco:25,veintiseis:26,veintisiete:27,veintiocho:28,veintinueve:29,treinta:30,cuarenta:40,cincuenta:50,sesenta:60,setenta:70,ochenta:80,noventa:90,cien:100,ciento:100,doscientos:200,doscientas:200,trescientos:300,trescientas:300,cuatrocientos:400,cuatrocientas:400,quinientos:500,quinientas:500,seiscientos:600,seiscientas:600,setecientos:700,setecientas:700,ochocientos:800,ochocientas:800,novecientos:900,novecientas:900};
+  const MULT = {mil:1000, luca:1000, lucas:1000, barra:1000, barras:1000, millon:1e6, millones:1e6, palo:1e6, palos:1e6};
+  const U = (u, f = 1) => [u, f];
+  const UNITS = {
+    bulto:U('costales'), bultos:U('costales'), bultico:U('costales'), bulticos:U('costales'), costal:U('costales'), costales:U('costales'), saco:U('costales'), sacos:U('costales'),
+    arroba:U('kg',12.5), arrobas:U('kg',12.5), kilo:U('kg'), kilos:U('kg'), kg:U('kg'), kilogramo:U('kg'), kilogramos:U('kg'), libra:U('kg',0.5), libras:U('kg',0.5),
+    paquete:U('paquetes'), paquetes:U('paquetes'), paca:U('paquetes'), pacas:U('paquetes'),
+    canastilla:U('canastillas'), canastillas:U('canastillas'), canasta:U('canastillas'), canastas:U('canastillas'), caja:U('canastillas'), cajas:U('canastillas'), guacal:U('canastillas'), guacales:U('canastillas'),
+    unidad:U('unidades'), unidades:U('unidades'), docena:U('unidades',12), docenas:U('unidades',12)
+  };
+  const L = s => s.split(' ');
+  const KW = {
+    credito: L('fie fio fia fias fiao fiaos fiado fiada fiados fiadas fiamos fiar fiaste fiaron fiarle fiarla fiarlo fiarles fiele fiela fielo fieme fiemela fiemelo credito creditos debe deben debiendo debera anote anota anoto anotado anotela apunte apunta apunto apuntado apuntelo apuntela cuenta fiadito fiaditos'),
+    contado: L('contado efectivo cash'),
+    medio: {nequi:'Nequi', daviplata:'Daviplata', efectivo:'Efectivo', transferencia:'Transferencia', transfirio:'Transferencia', bancolombia:'Transferencia', tarjeta:'Tarjeta', datafono:'Tarjeta'},
+    entrada: L('llegaron llego compre compramos entraron entro recibi recibimos trajeron trajo surti ingresaron entrada descargaron descargue'),
+    merma: L('dano danaron danado danados danada danadas bote botamos botar perdi perdimos perdio perdieron podrieron pudrieron pudrio podrido podridos podrida podridas merma averiado averiados vencido vencidos'),
+    abono: L('abono abonar abona abonaron abonamos pago pagaron cancelo consigno mando'),
+    pregunta: L('cuanto cuanta cuantos cuantas que como dime digame cual cuales'),
+    honor: L('don dona senor senora sr sra senorita seno profe tia tio vecino vecina compadre comadre cliente restaurante tienda fruver supermercado almacen asadero cafeteria hotel colegio casino'),
+    qDeuda: L('debe deben deuda deudas debo fiado fiados cartera cobrar'),
+    qStock: L('queda quedan hay tengo tenemos inventario existencia existencias stock'),
+    qVentas: L('vendi vendimos venta ventas vendido gane ganancia ganamos plata hice llevamos'),
+  };
+  // Variantes de «fiar» que el reconocimiento de voz suele escribir (fié, fíe, lefié, fiao, fiármelo…)
+  const RX_FIA = /^(le|les|se|me)?fi(e|o|a|as|ao|aos|ar|arle|arla|arlo|arles|ado|ada|ados|adas|adito|aditos|amos|aste|aron|ele|ela|elo|eme|emela|emelo|armelo|armela)$/;
+  // Frases que también significan crédito
+  const RX_CREDITO = /\b(queda(n|ron)? debiendo|me (lo|la|los|las) (paga|pagan|pagara|pagaran)|pag(a|an|ara|aran|o) (despues|luego|el (lunes|martes|miercoles|jueves|viernes|sabado|domingo)|la otra semana|manana|el fin de semana)|para (despues|luego|el (lunes|martes|miercoles|jueves|viernes|sabado|domingo))|a cuenta|en cuenta|a credito|al fiado|de fiado|lo dejo anotado|lo anote|me lo anota|se lo anoto|se lo apunto|apuntemelo|anotemelo)\b/;
+  const STOP = new Set(L('a al para de del la el los las y e con en por le les me se lo que un una unos unas hoy ayer manana ya otra otro otros mas pues entonces bueno listo cada es son fue esta este esa ese mi su sus pesos todo total aca alla ahi hay va vamos'));
+  const ALLKW = new Set([...KW.credito, ...KW.contado, ...Object.keys(KW.medio), ...KW.entrada, ...KW.merma, ...KW.abono, ...KW.qStock, ...KW.qVentas, ...KW.qDeuda, 'vendi','vendio','vende','venda','vender','venta','lleva','llevo','compro','despache','despacho','pagado','pago','pagar','queda','quedo']);
+
+  function lev(a, b) {
+    if (a === b) return 0; const m = a.length, n = b.length; if (!m) return n; if (!n) return m;
+    let prev = Array.from({length:n+1}, (_, i) => i);
+    for (let i = 1; i <= m; i++) { const cur = [i]; for (let j = 1; j <= n; j++) cur[j] = Math.min(prev[j] + 1, cur[j-1] + 1, prev[j-1] + (a[i-1] === b[j-1] ? 0 : 1)); prev = cur; }
+    return prev[n];
+  }
+  function wordEq(a, b) {
+    if (a === b) return true;
+    const va = [a, a.replace(/s$/, ''), a.replace(/es$/, '')], vb = [b, b.replace(/s$/, ''), b.replace(/es$/, '')];
+    if (va.some(x => x.length >= 3 && vb.includes(x))) return true;
+    if (b.length >= 5 && a.length >= 4 && lev(a, b) <= 1) return true;
+    if (b.length >= 8 && lev(a, b) <= 2) return true;
+    return false;
+  }
+
+  function tokenize(text) {
+    let s = String(text).toLowerCase();
+    s = s.replace(/\$/g, ' ');
+    s = s.replace(/(\d)\s*k\b/g, '$1 mil');
+    s = s.replace(/(\d)(mil|lucas|luca|palos|palo|kg|kilos|kilo)\b/g, '$1 $2');
+    s = s.replace(/\b\d{1,3}(?:[.,]\d{3})+(?!\d)/g, m => m.replace(/[.,]/g, ''));
+    s = s.replace(/\b(\d+),(\d{1,2})\b/g, '$1.$2');
+    return s.split(/[^a-z0-9áéíóúüñ.]+/).map(t => t.replace(/^\.+|\.+$/g, '')).filter(Boolean).map(o => ({o, n:strip(o)}));
+  }
+  const isDigit = t => /^\d+(\.\d+)?$/.test(t);
+  function canAdd(cur, v) {
+    if (cur >= 1000 && cur % 1000 === 0) return v < 1000;
+    if (cur >= 100 && cur % 100 === 0) return v < 100;
+    if (cur >= 20 && cur % 10 === 0) return v < 10;
+    return false;
+  }
+  function mergeNumbers(toks) {
+    const out = []; let i = 0;
+    const isNumTok = t => isDigit(t.n) || (t.n in NUMW) || (t.n in MULT);
+    while (i < toks.length) {
+      const t = toks[i];
+      if (t.n === 'medio' || t.n === 'media') { out.push({type:'num', v:0.5, n:'0.5', o:t.o, medio:true}); i++; continue; }
+      if (!isNumTok(t)) { out.push({...t, type:'w'}); i++; continue; }
+      let total = 0, cur = 0, any = false, lastTens = false; const raw = [];
+      while (i < toks.length) {
+        const x = toks[i];
+        if (isDigit(x.n)) { if (any && cur > 0) break; cur += parseFloat(x.n); any = true; lastTens = false; raw.push(x.o); i++; continue; }
+        if (x.n in NUMW) { const v = NUMW[x.n]; if (any && cur > 0 && !canAdd(cur, v)) break; cur += v; any = true; lastTens = v >= 20 && v < 100 && v % 10 === 0; raw.push(x.o); i++; continue; }
+        if (x.n in MULT) { const m = MULT[x.n]; if (m === 1000) cur = (cur || 1) * 1000; else { total += (cur || 1) * m; cur = 0; } any = true; lastTens = false; raw.push(x.o); i++; continue; }
+        if (x.n === 'y' && lastTens && i + 1 < toks.length && (toks[i+1].n in NUMW) && NUMW[toks[i+1].n] < 10) { i++; continue; }
+        if (x.n === 'y' && any && i + 1 < toks.length && (toks[i+1].n === 'medio' || toks[i+1].n === 'media')) { cur += 0.5; raw.push('y medio'); i += 2; continue; }
+        break;
+      }
+      out.push({type:'num', v:total + cur, n:String(total + cur), o:raw.join(' ')});
+    }
+    return out;
+  }
+
+  function prodIndex(productos) {
+    return productos.map(p => ({p, names:[p.nombre, ...(p.alias || [])].map(x => strip(x).split(/\s+/).filter(Boolean)).filter(a => a.length)}));
+  }
+  function findMentions(T, idx) {
+    const ms = []; let i = 0;
+    while (i < T.length) {
+      if (T[i].type !== 'w' || STOP.has(T[i].n) || UNITS[T[i].n]) { i++; continue; }
+      let best = null;
+      for (const e of idx) {
+        for (let k = 0; k < e.names.length; k++) {
+          const nm = e.names[k]; let ok = true;
+          for (let j = 0; j < nm.length; j++) { const t = T[i + j]; if (!t || t.type !== 'w' || !wordEq(t.n, nm[j])) { ok = false; break; } }
+          if (ok) { const score = nm.length * 10 + (k === 0 ? 1 : 0); if (!best || score > best.score) best = {p:e.p, start:i, end:i + nm.length, score, partial:false}; }
+        }
+        // primera palabra del nombre principal (p. ej. "papa" → Papa criolla) con prioridad baja
+        const first = e.names[0][0];
+        if (!best && first && T[i].type === 'w' && wordEq(T[i].n, first) && first.length >= 4) best = {p:e.p, start:i, end:i + 1, score:1, partial:true};
+      }
+      if (best) { ms.push(best); i = best.end; } else i++;
+    }
+    return ms;
+  }
+  const titulo = ws => ws.map(w => { const s = strip(w); if (s === 'dona') return 'Doña'; if (s === 'senora') return 'Señora'; if (s === 'senor') return 'Señor'; if (s === 'senorita') return 'Señorita'; return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ');
+  const nameWord = (t, used) => t && t.type === 'w' && !STOP.has(t.n) && !ALLKW.has(t.n) && !RX_FIA.test(t.n) && !UNITS[t.n] && !(t.n in NUMW) && !(t.n in MULT) && !used.has(t) && t.n.length >= 2;
+
+  function findClient(T, clientes, usedIdx) {
+    const used = new Set([...usedIdx].map(i => T[i]));
+    let best = null;
+    for (const c of clientes) {
+      const ct = strip(c.nombre).split(/\s+/).filter(w => !KW.honor.includes(w) && !STOP.has(w) && w.length >= 3);
+      if (!ct.length) continue;
+      let hit = 0; const idx = [];
+      for (const w of ct) { const j = T.findIndex((t, ix) => t.type === 'w' && !usedIdx.has(ix) && !idx.includes(ix) && wordEq(t.n, w)); if (j >= 0) { hit++; idx.push(j); } }
+      if (hit) { const score = hit / ct.length + hit * 0.1; if (!best || score > best.score) best = {c, score, idx}; }
+    }
+    if (best && best.score >= 0.5) return {nombre:best.c.nombre, id:best.c.id, nuevo:false, idx:best.idx};
+    for (let i = 0; i < T.length; i++) {
+      if (T[i].type === 'w' && KW.honor.includes(T[i].n) && !usedIdx.has(i)) {
+        const ws = [T[i].o]; let j = i + 1;
+        while (j < T.length && ws.length < 3 && nameWord(T[j], used)) { ws.push(T[j].o); j++; }
+        if (ws.length > 1) return {nombre:titulo(ws), nuevo:true, idx:Array.from({length:j - i}, (_, k) => i + k)};
+      }
+    }
+    for (let i = 0; i < T.length - 1; i++) {
+      if (['a','al','para'].includes(T[i].n) && nameWord(T[i+1], used) && !usedIdx.has(i+1) && T[i+1].n.length >= 3) {
+        const ws = [T[i+1].o]; let j = i + 2;
+        if (nameWord(T[j], used) && !usedIdx.has(j)) { ws.push(T[j].o); j++; }
+        return {nombre:titulo(ws), nuevo:true, idx:Array.from({length:j - i - 1}, (_, k) => i + 1 + k)};
+      }
+    }
+    return null;
+  }
+
+  function convertir(p, qty, unit, unitWord) {
+    if (!unit) return {cantidad:qty, factor:1, nota:null, warn:false};
+    const [u, f] = unit;
+    if (u === p.unidad) return {cantidad:qty * f, factor:f, nota: f !== 1 ? `${num(qty)} ${unitWord} = ${num(qty * f)} ${UNIDAD_TXT[u]}` : null, warn:false};
+    if (u === 'kg' && p.pesoKg) { const c = qty * f / p.pesoKg; return {cantidad:c, factor:f / p.pesoKg, nota:`${num(qty)} ${unitWord} ≈ ${num(c, 3)} ${UNIDAD_TXT[p.unidad]} (1 = ${p.pesoKg} kg)`, warn:false}; }
+    if (p.unidad === 'kg' && p.pesoKg && u !== 'kg') return {cantidad:qty, factor:1, nota:`Dijo ${unitWord}, pero ${p.nombre} se maneja en kg: revise la cantidad`, warn:true};
+    return {cantidad:qty, factor:1, nota:`Dijo ${unitWord}, pero ${p.nombre} se maneja en ${UNIDAD_TXT[p.unidad]}: revise la cantidad`, warn:true};
+  }
+
+  function parse(text, ctx) {
+    const T = mergeNumbers(tokenize(text));
+    const has = list => T.some(t => t.type === 'w' && list.includes(t.n));
+    const mentions = findMentions(T, prodIndex(ctx.productos));
+    const usedIdx = new Set(); mentions.forEach(m => { for (let i = m.start; i < m.end; i++) usedIdx.add(i); });
+    const cliente = findClient(T, ctx.clientes, usedIdx);
+    if (cliente) cliente.idx.forEach(i => usedIdx.add(i));
+    const r = {frase:text, intent:'desconocido', cliente, tipo:'contado', medio:'', items:[], monto:0, avisos:[], confianza:1};
+    const firstW = T.find(t => t.type === 'w');
+    const esPregunta = /[?¿]/.test(text) || (firstW && T[0] === firstW && KW.pregunta.includes(firstW.n));
+    if (esPregunta) r.intent = 'consulta';
+    else if (ctx.modo === 'entrada') r.intent = 'entrada';
+    else if (!mentions.length && has(KW.abono) && cliente) r.intent = 'abono';
+    else if (mentions.length && has(KW.merma)) r.intent = 'merma';
+    else if (mentions.length && has(KW.entrada)) r.intent = 'entrada';
+    else if (mentions.length) r.intent = 'venta';
+    else if (has(KW.abono)) r.intent = 'abono';
+    for (const t of T) if (t.type === 'w' && KW.medio[t.n]) { r.medio = KW.medio[t.n]; break; }
+    if (r.intent === 'venta') {
+      const fraseN = T.map(t => t.n).join(' ');
+      const credito = has(KW.credito) || T.some(t => t.type === 'w' && RX_FIA.test(t.n)) || RX_CREDITO.test(fraseN);
+      r.tipo = credito && !has(KW.contado) ? 'credito' : 'contado';
+      if (r.tipo === 'credito') r.medio = '';
+      else if (!r.medio) r.medio = 'Efectivo';
+    }
+    if (r.intent === 'consulta') {
+      r.qTipo = has(KW.qDeuda) ? 'deuda' : has(KW.qStock) ? 'stock' : 'ventas';
+      r.items = mentions.map(m => ({productoId:m.p.id}));
+      return r;
+    }
+    if (r.intent === 'abono') {
+      const nums = T.filter(t => t.type === 'num').map(t => t.v);
+      r.monto = nums.length ? Math.max(...nums) : 0;
+      if (!r.monto) { r.avisos.push('No escuché el monto del abono'); r.confianza -= 0.4; }
+      if (!r.medio) r.medio = 'Efectivo';
+      return r;
+    }
+    // ---- ítems ----
+    const PRE = ['de','del','la','el','los','las'];
+    mentions.forEach((m, mi) => {
+      const segStart = mi === 0 ? 0 : mentions[mi-1].end;
+      const segEnd = mi + 1 < mentions.length ? mentions[mi+1].start : T.length;
+      const p = m.p; let qty = null, unit = null, unitWord = '', j = m.start - 1, k = m.end;
+      const it = {productoId:p.id, nombre:p.nombre, inferido:{}, nota:null, warn:false};
+      while (j >= segStart && PRE.includes(T[j].n)) j--;
+      // "dos bultos y medio de papa"
+      if (j >= segStart + 3 && T[j].type === 'num' && T[j].medio && T[j-1].n === 'y' && UNITS[T[j-2].n] && T[j-3].type === 'num') { qty = T[j-3].v + 0.5; unit = UNITS[T[j-2].n]; unitWord = T[j-2].o; [j, j-1, j-2, j-3].forEach(x => T[x].used = true); }
+      else {
+        if (j >= segStart && T[j].type === 'w' && UNITS[T[j].n]) { unit = UNITS[T[j].n]; unitWord = T[j].o; j--; }
+        if (j >= segStart && T[j].type === 'num' && !T[j].used) { qty = T[j].v; T[j].used = true; }
+      }
+      if (qty == null && k < segEnd && T[k].type === 'num' && !T[k].used && (T[k].v < 1000 || (T[k+1] && UNITS[T[k+1].n]))) {
+        qty = T[k].v; T[k].used = true; k++;
+        if (k < segEnd && T[k].type === 'w' && UNITS[T[k].n]) { unit = UNITS[T[k].n]; unitWord = T[k].o; k++; }
+      } else if (k < segEnd && T[k].type === 'w' && UNITS[T[k].n] && !unit) { unit = UNITS[T[k].n]; unitWord = T[k].o; k++; }
+      if (qty == null) { qty = unit ? 1 : 1; it.inferido.cantidad = true; r.avisos.push(`No escuché la cantidad de ${p.nombre}: supuse 1`); r.confianza -= 0.25; }
+      if (unit && unit[1] === 1 && unit[0] === p.unidad) unitWord = UNIDAD_TXT[p.unidad];
+      if (m.partial) { r.avisos.push(`Entendí «${T[m.start].o}» como ${p.nombre}`); r.confianza -= 0.1; }
+      const cv = convertir(p, qty, unit, unitWord);
+      it.cantidad = Math.round(cv.cantidad * 1000) / 1000; it.unidad = p.unidad; it.nota = cv.nota; it.warn = cv.warn;
+      if (cv.warn) { r.confianza -= 0.3; }
+      // ---- precio ----
+      let price = null, kind = null, priceUnit = null;
+      const lista = r.intent === 'venta' ? p.precioVenta : p.precioCosto;
+      for (let x = Math.max(k, m.end); x < segEnd; x++) {
+        const t = T[x]; if (t.type !== 'num' || t.used || t.v < 50) continue;
+        const prev = x > 0 ? T[x-1].n : ''; const prev2 = x > 1 ? T[x-2].n : '';
+        if (['a','al','cada'].includes(prev)) kind = 'unit';
+        else if (['por','total','todo','en'].includes(prev) || (prev === 'todo' && prev2 === 'por')) kind = 'total';
+        else if (prev === 'pesos' || prev === 'precio' || prev === 'vale' || prev === 'valor') kind = 'unit';
+        else kind = 'bare';
+        const nx = T[x+1], nx2 = T[x+2];
+        if (nx && ['cada','c','u'].includes(nx.n)) kind = 'unit';
+        if (nx && UNITS[nx.n]) { kind = 'unit'; priceUnit = UNITS[nx.n]; }
+        else if (nx && ['el','la','por'].includes(nx.n) && nx2 && UNITS[nx2.n]) { kind = 'unit'; priceUnit = UNITS[nx2.n]; }
+        else if (nx && ['en','de'].includes(nx.n) && nx2 && nx2.n === 'total') kind = 'total';
+        price = t.v; t.used = true; break;
+      }
+      // Busca también un precio suelto en toda la frase si solo hay un producto
+      if (price == null && mentions.length === 1) {
+        for (let x = 0; x < T.length; x++) { const t = T[x]; if (t.type !== 'num' || t.used || t.v < 100) continue; const prev = x > 0 ? T[x-1].n : ''; kind = ['por','total','en'].includes(prev) ? 'total' : prev === 'a' ? 'unit' : 'bare'; price = t.v; t.used = true; break; }
+      }
+      let precioUnit;
+      if (price == null) { precioUnit = lista; it.inferido.precio = true; }
+      else {
+        if (kind === 'bare') {
+          // ¿el número suelto es precio por unidad o total? Se compara con el precio de lista.
+          const esperadoUnit = lista * (cv.factor || 1), esperadoTotal = lista * it.cantidad;
+          kind = (qty > 1 && Math.abs(price - esperadoTotal) < Math.abs(price - esperadoUnit)) ? 'total' : 'unit';
+        }
+        if (kind === 'total') precioUnit = price / (it.cantidad || 1);
+        else if (priceUnit) { const pc = convertir(p, 1, priceUnit, ''); precioUnit = price / (pc.factor || 1); }
+        else precioUnit = price / (cv.factor || 1);
+      }
+      it.precioUnit = Math.round(precioUnit);
+      if (r.intent === 'venta' && price != null && precioUnit < p.precioCosto * 0.5) { r.avisos.push(`El precio de ${p.nombre} quedó muy por debajo del costo: revise`); r.confianza -= 0.2; it.warn = true; }
+      r.items.push(it);
+    });
+    if (r.intent === 'venta' && r.tipo === 'credito' && !cliente) { r.avisos.push('Es fiado pero no escuché a quién: escriba el cliente'); r.confianza -= 0.3; }
+    if (r.intent === 'desconocido') r.confianza = 0;
+    r.confianza = Math.max(0, Math.min(1, r.confianza));
+    return r;
+  }
+  function puntaje(r) { return r.items.length * 2 + (r.cliente ? 1 : 0) + (r.intent !== 'desconocido' ? 1 : 0) + r.confianza; }
+  return {parse, puntaje, tokenize, mergeNumbers, _wordEq:wordEq};
+})();
+
+/* =========================================================
+   Propuestas (lo que la IA entendió, pendiente de confirmar)
+   ========================================================= */
+const INTENT_UI = {
+  venta:   {t:'Venta', i:'bi-cart-check-fill', c:'ic-green'},
+  entrada: {t:'Entrada de mercancía', i:'bi-box-arrow-in-down', c:'ic-blue'},
+  merma:   {t:'Merma (producto dañado)', i:'bi-trash3-fill', c:'ic-clay'},
+  abono:   {t:'Abono a deuda', i:'bi-cash-coin', c:'ic-harvest'}
+};
+const Prop = {
+  lista: [], lotes: {},
+  nuevoLote(metodo, t0) { const id = uid(); this.lotes[id] = {id, metodo, t0, pendientes:0, confirmados:0, registros:0, correcciones:0, frases:[]}; return id; },
+  agregar(r, loteId) {
+    const lote = this.lotes[loteId];
+    if (r.intent === 'consulta') { Acciones.responder(r); return; }
+    if (r.intent === 'desconocido' || (['venta','entrada','merma'].includes(r.intent) && !r.items.length)) {
+      if (lote && lote.metodo !== 'foto') $('#respuesta').innerHTML = `<div class="alert alert-warning d-flex gap-2 align-items-start mb-3"><i class="bi bi-question-circle-fill fs-5"></i><div>No entendí «${esc(r.frase)}». Intente así: <b>«vendí 3 bultos de yuca a don Pedro a 42 mil»</b> o <b>«doña Rosa abonó 50 mil»</b>.</div></div>`;
+      return false;
+    }
+    const card = {id:uid(), r, loteId, orig:JSON.parse(JSON.stringify(r))};
+    this.lista.push(card); if (lote) { lote.pendientes++; lote.frases.push(r.frase); }
+    this.render(); return true;
+  },
+  render() {
+    const cont = $('#propuestas');
+    $('#propVacio').hidden = !!this.lista.length;
+    $('#propCount').textContent = this.lista.length || '';
+    $('#propCount').hidden = !this.lista.length;
+    cont.innerHTML = this.lista.map(c => this.cardHTML(c)).join('') + (this.lista.length > 1 ? `<div class="d-flex gap-2 mb-3"><button class="btn btn-success" id="confirmarTodo"><i class="bi bi-check2-all"></i> Confirmar todo (${this.lista.length})</button><button class="btn btn-outline-secondary" id="descartarTodo">Descartar todo</button></div>` : '');
+    this.lista.forEach(c => this.bind(c));
+    const ct = $('#confirmarTodo'); if (ct) ct.onclick = () => [...this.lista].forEach(c => this.confirmar(c.id));
+    const dt = $('#descartarTodo'); if (dt) dt.onclick = () => [...this.lista].forEach(c => this.descartar(c.id));
+  },
+  cardHTML(c) {
+    const r = c.r; const lote = this.lotes[c.loteId] || {metodo:'texto'};
+    const iu = INTENT_UI[r.intent];
+    const conf = r.confianza >= 0.85 ? '<span class="badge rounded-pill bg-success-subtle text-success-emphasis"><i class="bi bi-check-circle-fill"></i> Entendido</span>' : r.confianza >= 0.5 ? '<span class="badge rounded-pill bg-warning-subtle text-warning-emphasis"><i class="bi bi-eye-fill"></i> Revise lo resaltado</span>' : '<span class="badge rounded-pill bg-danger-subtle text-danger-emphasis"><i class="bi bi-exclamation-triangle-fill"></i> Revise con cuidado</span>';
+    const avisos = r.avisos.map(a => `<div class="alert alert-warning py-2 px-3 small mb-2"><i class="bi bi-lightbulb-fill me-1"></i>${esc(a)}</div>`).join('');
+    const opProd = sel => D().productos.map(p => `<option value="${p.id}" ${p.id === sel ? 'selected' : ''}>${esc(p.nombre)}</option>`).join('');
+    const opMedio = sel => ['', ...MEDIOS].map(m => `<option value="${m}" ${m === sel ? 'selected' : ''}>${m || '—'}</option>`).join('');
+    let cuerpo = '';
+    if (r.intent === 'abono') {
+      const deuda = r.cliente ? deudaDe(r.cliente.nombre) : 0;
+      cuerpo = `<div class="row g-2 mb-2">
+        <div class="col-md-5"><label class="form-label small fw-semibold mb-1">Cliente</label><input data-f="cliente" list="dlClientes" value="${esc(r.cliente ? r.cliente.nombre : '')}" class="form-control ${r.cliente ? '' : 'inferred'}"></div>
+        <div class="col-md-4"><label class="form-label small fw-semibold mb-1">Monto</label><input data-f="monto" type="number" value="${r.monto || ''}" class="form-control ${r.monto ? '' : 'inferred'}"></div>
+        <div class="col-md-3"><label class="form-label small fw-semibold mb-1">Medio</label><select data-f="medio" class="form-select">${opMedio(r.medio)}</select></div></div>
+        <div class="small text-body-secondary">Deuda actual: <b>${fmt(deuda)}</b>${r.monto ? ` · después del abono: <b class="text-success">${fmt(Math.max(0, deuda - r.monto))}</b>` : ''}</div>`;
+    } else {
+      const lblCli = r.intent === 'entrada' ? 'Proveedor' : 'Cliente';
+      cuerpo = `<div class="row g-2 mb-2">
+        ${r.intent !== 'merma' ? `<div class="col-md-${r.intent === 'venta' ? 5 : 12}"><label class="form-label small fw-semibold mb-1">${lblCli}</label><input data-f="cliente" list="dlClientes" class="form-control" placeholder="${r.intent === 'venta' ? 'Cliente de mostrador' : 'Proveedor'}" value="${esc(r.cliente ? r.cliente.nombre : '')}"></div>` : ''}
+        ${r.intent === 'venta' ? `<div class="col-6 col-md-4"><label class="form-label small fw-semibold mb-1">Tipo</label><select data-f="tipo" class="form-select ${r.tipoDudoso ? 'inferred' : ''}"><option value="contado" ${r.tipo === 'contado' ? 'selected' : ''}>De contado</option><option value="credito" ${r.tipo === 'credito' ? 'selected' : ''}>Fiado (crédito)</option></select></div>
+        <div class="col-6 col-md-3"><label class="form-label small fw-semibold mb-1">Medio de pago</label><select data-f="medio" class="form-select">${opMedio(r.medio)}</select></div>` : ''}
+        </div>
+        <div class="table-responsive"><table class="table table-sm align-middle mb-1 items-table"><thead><tr><th>Producto</th><th style="width:20%">Cantidad</th><th>Unidad</th><th style="width:24%">${r.intent === 'venta' ? 'Precio / unidad' : 'Costo / unidad'}</th><th class="text-end">Total</th></tr></thead><tbody>
+        ${r.items.map((it, i) => `<tr>
+          <td><select data-i="${i}" data-f="producto" class="form-select form-select-sm">${opProd(it.productoId)}</select></td>
+          <td><input data-i="${i}" data-f="cantidad" type="number" step="0.001" value="${it.cantidad}" class="form-control form-control-sm ${it.inferido.cantidad || it.warn ? 'inferred' : ''}"></td>
+          <td class="small text-body-secondary" data-i="${i}" data-f="unidadTxt">${UNIDAD_TXT[(prodById(it.productoId) || {}).unidad] || ''}</td>
+          <td><input data-i="${i}" data-f="precio" type="number" step="1" value="${it.precioUnit}" class="form-control form-control-sm ${it.inferido.precio ? 'inferred' : ''}" title="${it.inferido.precio ? 'Precio de lista (no lo escuché en la frase)' : ''}"></td>
+          <td class="text-end fw-semibold" data-i="${i}" data-f="total">${fmt(it.cantidad * it.precioUnit)}</td></tr>
+          ${it.nota ? `<tr><td colspan="5" class="small border-0 pt-0 ${it.warn ? 'text-danger' : 'text-body-secondary'}"><i class="bi bi-arrow-return-right"></i> ${esc(it.nota)}</td></tr>` : ''}`).join('')}
+        </tbody></table></div>`;
+    }
+    return `<div class="card prop prop-${r.intent} shadow-sm mb-3" id="card-${c.id}"><div class="card-body">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <span class="ic ${iu.c}"><i class="bi ${iu.i}"></i></span>
+        <div class="lh-sm"><div class="fw-bold">${iu.t}</div><div class="small text-body-secondary">${METODO_TXT[lote.metodo] || ''}</div></div>
+        <div class="ms-auto">${conf}</div>
+      </div>
+      <div class="frase mb-3"><i class="bi bi-quote"></i> ${esc(r.frase)}</div>
+      ${avisos}${cuerpo}
+      <div class="d-flex align-items-center gap-2 mt-3 pt-3 border-top">
+        <button class="btn btn-success" data-act="ok"><i class="bi bi-check-lg"></i> Confirmar</button>
+        <button class="btn btn-outline-secondary" data-act="no">Descartar</button>
+        <span class="ms-auto fs-4 fw-bold" data-f="gran">${r.intent === 'abono' ? fmt(r.monto) : fmt(r.items.reduce((s, it) => s + it.cantidad * it.precioUnit, 0))}</span>
+      </div>
+    </div></div>`;
+  },
+  bind(c) {
+    const el = $('#card-' + c.id); if (!el) return;
+    el.querySelector('[data-act="ok"]').onclick = () => this.confirmar(c.id);
+    el.querySelector('[data-act="no"]').onclick = () => this.descartar(c.id);
+    el.querySelectorAll('input,select').forEach(inp => inp.addEventListener('input', () => { inp.classList.remove('inferred'); if (inp.dataset.f === 'precio') inp.dataset.touched = '1'; this.leer(c); this.recalc(c); }));
+  },
+  leer(c) {
+    const el = $('#card-' + c.id); const r = c.r; const g = f => el.querySelector(`[data-f="${f}"]`);
+    if (g('cliente')) { const v = g('cliente').value.trim(); r.cliente = v ? {nombre:v} : null; }
+    if (g('tipo')) r.tipo = g('tipo').value;
+    if (g('medio')) r.medio = g('medio').value;
+    if (g('monto')) r.monto = parseFloat(g('monto').value) || 0;
+    r.items.forEach((it, i) => {
+      const q = f => el.querySelector(`[data-i="${i}"][data-f="${f}"]`);
+      const pid = q('producto').value;
+      if (pid !== it.productoId) { const p = prodById(pid); it.productoId = pid; it.nombre = p.nombre; it.unidad = p.unidad; q('unidadTxt').textContent = UNIDAD_TXT[p.unidad]; if (!q('precio').dataset.touched) { it.precioUnit = c.r.intent === 'venta' ? p.precioVenta : p.precioCosto; q('precio').value = it.precioUnit; } }
+      it.cantidad = parseFloat(q('cantidad').value) || 0;
+      it.precioUnit = parseFloat(q('precio').value) || 0;
+    });
+  },
+  recalc(c) {
+    const el = $('#card-' + c.id); const r = c.r;
+    r.items.forEach((it, i) => { const t = el.querySelector(`[data-i="${i}"][data-f="total"]`); if (t) t.textContent = fmt(it.cantidad * it.precioUnit); });
+    el.querySelector('[data-f="gran"]').textContent = r.intent === 'abono' ? fmt(r.monto) : fmt(r.items.reduce((s, it) => s + it.cantidad * it.precioUnit, 0));
+  },
+  correcciones(c) {
+    const a = c.orig, b = c.r; let n = 0;
+    if (strip(a.cliente ? a.cliente.nombre : '') !== strip(b.cliente ? b.cliente.nombre : '')) n++;
+    if (a.tipo !== b.tipo) n++;
+    if ((a.medio || '') !== (b.medio || '') && a.intent === 'venta') n++;
+    if (a.intent === 'abono' && a.monto !== b.monto) n++;
+    b.items.forEach((it, i) => { const o = a.items[i] || {}; if (o.productoId !== it.productoId) n++; if (Math.abs((o.cantidad || 0) - it.cantidad) > 1e-6) n++; if (Math.abs((o.precioUnit || 0) - it.precioUnit) > 0.5) n++; });
+    return n;
+  },
+  confirmar(id) {
+    const c = this.lista.find(x => x.id === id); if (!c) return;
+    this.leer(c);
+    const lote = this.lotes[c.loteId] || {metodo:'texto'};
+    const ok = Acciones.guardar(c.r, lote.metodo);
+    if (!ok) return;
+    if (this.lotes[c.loteId]) { lote.confirmados++; lote.registros += c.r.intent === 'abono' ? 1 : c.r.items.length; lote.correcciones += this.correcciones(c); }
+    this.quitar(c);
+  },
+  descartar(id) { const c = this.lista.find(x => x.id === id); if (c) this.quitar(c); },
+  quitar(c) {
+    this.lista = this.lista.filter(x => x !== c);
+    const lote = this.lotes[c.loteId];
+    if (lote) { lote.pendientes--; if (lote.pendientes <= 0) { Medicion.cerrarLote(lote); delete this.lotes[c.loteId]; } }
+    this.render(); UI.refrescar();
+  }
+};
+
+/* =========================================================
+   Acciones de negocio
+   ========================================================= */
+const Acciones = {
+  guardar(r, metodo) {
+    const hoy = fechaLocal(), hora = horaLocal();
+    if (r.intent === 'abono') {
+      if (!r.cliente || !r.cliente.nombre) { toast('Escriba el cliente del abono'); return false; }
+      if (!(r.monto > 0)) { toast('Escriba el monto del abono'); return false; }
+      asegurarCliente(r.cliente.nombre);
+      D().abonos.push({id:uid(), fecha:hoy, hora, cliente:r.cliente.nombre, monto:r.monto, medio:r.medio || 'Efectivo', metodo});
+      DB.save(); const resta = deudaDe(r.cliente.nombre);
+      toast(`✅ Abono de ${fmt(r.monto)} de ${r.cliente.nombre}. Queda debiendo ${fmt(resta)}`);
+      hablar(`Listo. ${r.cliente.nombre} abonó ${Math.round(r.monto)} pesos. Queda debiendo ${Math.round(resta)} pesos.`);
+      return true;
+    }
+    if (!r.items.length) return false;
+    for (const it of r.items) { if (!(it.cantidad > 0)) { toast('Hay una cantidad vacía o en cero'); return false; } if (r.intent !== 'merma' && !(it.precioUnit > 0)) { toast('Hay un precio vacío'); return false; } }
+    if (r.intent === 'venta') {
+      if (r.tipo === 'credito' && !(r.cliente && r.cliente.nombre)) { toast('Para fiar hay que escribir el cliente'); return false; }
+      const falt = r.items.find(it => { const p = prodById(it.productoId); const pedido = r.items.filter(x => x.productoId === it.productoId).reduce((s, x) => s + x.cantidad, 0); return pedido > p.cantidad + 1e-9; });
+      if (falt) { const p = prodById(falt.productoId); toast(`No alcanza el inventario de ${p.nombre}: hay ${num(p.cantidad)} ${UNIDAD_TXT[p.unidad]}`, 4500); return false; }
+      const cliente = (r.cliente && r.cliente.nombre) || 'Cliente de mostrador';
+      asegurarCliente(cliente);
+      const grupo = uid();
+      r.items.forEach(it => {
+        const p = prodById(it.productoId); const total = it.cantidad * it.precioUnit; const costo = it.cantidad * p.precioCosto;
+        D().ventas.push({id:uid(), grupo, fecha:hoy, hora, cliente, productoId:p.id, producto:p.nombre, cantidad:it.cantidad, unidad:p.unidad, precioUnit:it.precioUnit, total, costo, ganancia:total - costo, tipo:r.tipo, medio:r.tipo === 'credito' ? (r.medio || '') : (r.medio || 'Efectivo'), metodo, frase:r.frase || ''});
+        p.cantidad = Math.round((p.cantidad - it.cantidad) * 1000) / 1000;
+        mov(p, 'salida', it.cantidad, `Venta a ${cliente}${r.tipo === 'credito' ? ' (fiado)' : ''}`);
+      });
+      DB.save();
+      const tot = r.items.reduce((s, it) => s + it.cantidad * it.precioUnit, 0);
+      toast(`✅ Venta registrada: ${fmt(tot)}${r.tipo === 'credito' ? ' fiado a ' + cliente : ''}`);
+      hablar(`Listo. ${r.items.map(it => `${num(it.cantidad)} ${UNIDAD_TXT[it.unidad]} de ${it.nombre}`).join(' y ')}${r.tipo === 'credito' ? ', fiado a ' + cliente : ''}. Total ${Math.round(tot)} pesos.`);
+      return true;
+    }
+    if (r.intent === 'entrada') {
+      const prov = (r.cliente && r.cliente.nombre) || 'Proveedor';
+      r.items.forEach(it => {
+        const p = prodById(it.productoId);
+        p.cantidad = Math.round((p.cantidad + it.cantidad) * 1000) / 1000;
+        if (it.precioUnit > 0) p.precioCosto = it.precioUnit;
+        D().compras.push({id:uid(), fecha:hoy, hora, proveedor:prov, productoId:p.id, producto:p.nombre, cantidad:it.cantidad, unidad:p.unidad, precioUnit:it.precioUnit, total:it.cantidad * it.precioUnit, metodo, frase:r.frase || ''});
+        mov(p, 'entrada', it.cantidad, `Compra a ${prov}`);
+      });
+      DB.save(); toast(`✅ Entrada registrada (${r.items.length} producto${r.items.length > 1 ? 's' : ''})`);
+      hablar(`Listo. Entraron ${r.items.map(it => `${num(it.cantidad)} ${UNIDAD_TXT[it.unidad]} de ${it.nombre}`).join(' y ')}.`);
+      return true;
+    }
+    if (r.intent === 'merma') {
+      r.items.forEach(it => {
+        const p = prodById(it.productoId); const c = Math.min(it.cantidad, Math.max(0, p.cantidad));
+        p.cantidad = Math.round((p.cantidad - c) * 1000) / 1000;
+        const valor = c * p.precioCosto, kg = c * (p.pesoKg || (p.unidad === 'kg' ? 1 : 0));
+        D().mermas.push({id:uid(), fecha:hoy, hora, productoId:p.id, producto:p.nombre, cantidad:c, unidad:p.unidad, kg, valor, metodo, frase:r.frase || ''});
+        mov(p, 'merma', c, 'Producto dañado');
+      });
+      DB.save(); toast('✅ Merma registrada'); hablar('Listo, registré la merma.');
+      return true;
+    }
+    return false;
+  },
+  responder(r) {
+    let txt = '';
+    const hoy = fechaLocal();
+    if (r.qTipo === 'deuda') {
+      if (r.cliente) { const d = deudaDe(r.cliente.nombre); txt = d > 0 ? `${r.cliente.nombre} le debe ${fmt(d)}.` : `${r.cliente.nombre} no le debe nada.`; }
+      else { const c = cartera(); txt = c.length ? `Le deben ${fmt(c.reduce((s, x) => s + x.deuda, 0))} entre ${c.length} cliente${c.length > 1 ? 's' : ''}. El que más debe es ${c[0].nombre} con ${fmt(c[0].deuda)}.` : 'Nadie le debe.'; }
+    } else if (r.qTipo === 'stock') {
+      if (r.items.length) txt = r.items.map(it => { const p = prodById(it.productoId); return `De ${p.nombre} quedan ${num(p.cantidad)} ${UNIDAD_TXT[p.unidad]}.`; }).join(' ');
+      else { const bajos = D().productos.filter(p => p.cantidad <= (p.stockMin || 0)); txt = bajos.length ? `Se están acabando: ${bajos.map(p => `${p.nombre} (${num(p.cantidad)} ${UNIDAD_TXT[p.unidad]})`).join(', ')}.` : 'Ningún producto está por debajo del mínimo.'; }
+    } else {
+      const v = D().ventas.filter(x => x.fecha === hoy);
+      txt = v.length ? `Hoy lleva ${fmt(v.reduce((s, x) => s + x.total, 0))} en ventas, con ganancia de ${fmt(v.reduce((s, x) => s + x.ganancia, 0))}. De eso, ${fmt(v.filter(x => x.tipo === 'credito').reduce((s, x) => s + x.total, 0))} fue fiado.` : 'Hoy todavía no hay ventas registradas.';
+    }
+    $('#respuesta').innerHTML = `<div class="alert alert-success d-flex gap-2 align-items-start mb-3"><i class="bi bi-robot fs-5"></i><div>${esc(txt)}</div></div>`;
+    hablar(txt.replace(/\$\s?/g, '').replace(/\./g, ''));
+  },
+  eliminar(tipo, id) {
+    if (!confirm('¿Eliminar este registro? Se revierte su efecto en inventario o deuda.')) return;
+    if (tipo === 'venta') { const v = D().ventas.find(x => x.id === id); if (!v) return; const p = prodById(v.productoId); if (p) { p.cantidad += v.cantidad; mov(p, 'entrada', v.cantidad, 'Venta anulada'); } D().ventas = D().ventas.filter(x => x.id !== id); }
+    if (tipo === 'abono') D().abonos = D().abonos.filter(x => x.id !== id);
+    if (tipo === 'compra') { const c = D().compras.find(x => x.id === id); if (!c) return; const p = prodById(c.productoId); if (p) { p.cantidad = Math.max(0, p.cantidad - c.cantidad); mov(p, 'salida', c.cantidad, 'Compra anulada'); } D().compras = D().compras.filter(x => x.id !== id); }
+    if (tipo === 'merma') { const m = D().mermas.find(x => x.id === id); if (!m) return; const p = prodById(m.productoId); if (p) { p.cantidad += m.cantidad; mov(p, 'entrada', m.cantidad, 'Merma anulada'); } D().mermas = D().mermas.filter(x => x.id !== id); }
+    DB.save(); UI.refrescar(); toast('Registro eliminado');
+  }
+};
+
+/* =========================================================
+   Entrada: voz, texto, foto y formulario
+   ========================================================= */
+const ctxNLU = (modo) => ({productos:D().productos, clientes:D().clientes, modo});
+const EJEMPLOS = [
+  'Le fié 5 bultos de papa a doña Rosa a 55 mil',
+  'Dos bultos de yuca para don Pedro, pagó con Nequi',
+  'Vendí diez kilos de cebolla a 3.500 de contado',
+  'Doña Rosa abonó 150 lucas',
+  'Llegaron 20 bultos de papa sabanera a 38 mil',
+  'Se dañaron 8 kilos de tomate',
+  '¿Cuánto me debe doña Rosa?',
+  '¿Cuánta papa criolla queda?'
+];
+const GUION10 = [
+  'Cinco bultos de papa sabanera a doña Rosa a 55 mil, fiado',
+  'Dos bultos de yuca para don Pedro, pagó con Nequi',
+  'Diez kilos de cebolla a 3.500, de contado',
+  'Tres bultos de arroz a Fruver El Paisa a 110 mil, a crédito',
+  'Una canastilla de tomate a doña Marta por 60 mil',
+  'Cuatro bultos de maíz a don Pedro, fiado',
+  'Doña Rosa abonó 150 mil',
+  'Llegaron 20 bultos de papa sabanera a 38 mil',
+  'Se dañaron 8 kilos de tomate',
+  'Dos arrobas de papa criolla a doña Marta a 25 mil la arroba, en efectivo'
+];
+
+const Voz = {
+  rec: null, escuchando: false, quiere: false, t0: 0, t0Frase: null, primera: true,
+  soportado() { return !!(window.SpeechRecognition || window.webkitSpeechRecognition); },
+  ui(on, msg) {
+    $$('#micBtn, #fab, #fabM').forEach(b => b.classList.toggle('listening', on));
+    $('#micBtn').innerHTML = on ? '<i class="bi bi-stop-fill"></i>' : '<i class="bi bi-mic-fill"></i>';
+    if (msg) $('#micEstado').innerHTML = msg;
+  },
+  crear() {
+    if (this.rec) return this.rec;
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const rec = new SR(); this.rec = rec;
+    rec.lang = 'es-CO'; rec.interimResults = true; rec.maxAlternatives = 3;
+    rec.continuous = true;   // una sola sesión para varias operaciones: el permiso se pide una vez
+    rec.onresult = e => {
+      let interim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const res = e.results[i];
+        if (this.t0Frase == null) this.t0Frase = this.primera ? this.t0 : performance.now();
+        if (!res.isFinal) { interim += res[0].transcript; continue; }
+        const alts = Array.from(res).map(a => a.transcript.trim()).filter(Boolean);
+        if (!alts.length) continue;
+        const parsed = alts.map(t => ({t, r:NLU.parse(t, ctxNLU('auto'))}));
+        let mejor = parsed[0];
+        parsed.forEach(x => { if (NLU.puntaje(x.r) > NLU.puntaje(mejor.r)) mejor = x; });
+        // Si el reconocedor dudó y otra alternativa dice «fié/fiado», se avisa y se resalta el tipo
+        if (mejor.r.intent === 'venta' && mejor.r.tipo === 'contado') {
+          const otra = parsed.find(x => x !== mejor && x.r.intent === 'venta' && x.r.tipo === 'credito');
+          if (otra) { mejor.r.tipoDudoso = true; mejor.r.avisos.push(`También pudo decir «${otra.t}». ¿Fue fiado? Revise el tipo.`); mejor.r.confianza = Math.min(mejor.r.confianza, 0.8); }
+        }
+        $('#transcript').textContent = '«' + mejor.t + '»';
+        $('#respuesta').innerHTML = '';
+        const lote = Prop.nuevoLote('voz', this.t0Frase);
+        const agregado = Prop.agregar(mejor.r, lote);
+        if (mejor.r.intent === 'consulta' || agregado === false) delete Prop.lotes[lote];
+        this.t0Frase = null; this.primera = false;
+      }
+      if (interim) $('#transcript').innerHTML = `<span class="interim">${esc(interim)}</span>`;
+    };
+    rec.onerror = e => {
+      if (e.error === 'no-speech' || e.error === 'aborted') return;          // silencio: se sigue escuchando
+      if (e.error === 'not-allowed' || e.error === 'service-not-allowed') this.quiere = false;
+      const m = {'not-allowed':'Permiso de micrófono negado. Actívelo en el candado de la barra de direcciones.', 'service-not-allowed':'El navegador bloqueó el reconocimiento de voz en esta página.', 'network':'El reconocimiento de voz necesita internet.', 'audio-capture':'No se encontró micrófono.'}[e.error] || ('Error de voz: ' + e.error);
+      this.ui(this.quiere, m);
+    };
+    rec.onend = () => {
+      this.escuchando = false;
+      // Chrome cierra la sesión tras un rato de silencio. En https/localhost se reabre sola sin volver a pedir permiso;
+      // abierta como archivo (file://) Chrome volvería a preguntar, así que ahí se espera a que el usuario toque.
+      if (this.quiere && location.protocol !== 'file:') { try { rec.start(); this.escuchando = true; return; } catch (err) {} }
+      this.quiere = false;
+      this.ui(false, 'Toque el micrófono para dictar');
+    };
+    return rec;
+  },
+  iniciar() {
+    if (!this.soportado()) { $('#micEstado').innerHTML = 'Este navegador no trae reconocimiento de voz. Use <b>Google Chrome</b> o el micrófono del teclado del celular dentro del cuadro de texto.'; $('#fraseInput').focus(); return; }
+    if (this.quiere) { this.quiere = false; try { this.rec.stop(); } catch (e) {} this.ui(false, 'Micrófono apagado. Tóquelo para dictar de nuevo.'); return; }
+    const rec = this.crear();
+    this.quiere = true; this.t0 = performance.now(); this.t0Frase = null; this.primera = true;
+    $('#transcript').textContent = ''; $('#respuesta').innerHTML = '';
+    this.ui(true, '<b>Escuchando.</b> Dicte una o varias operaciones seguidas, con una pausa entre cada una. Toque <i class="bi bi-stop-fill"></i> para terminar.');
+    if (!this.escuchando) { try { rec.start(); this.escuchando = true; } catch (e) { /* ya estaba activa */ } }
+  }
+};
+
+const Texto = {
+  t0: null,
+  procesar(frase, metodo) {
+    frase = (frase || '').trim(); if (!frase) return;
+    $('#respuesta').innerHTML = '';
+    const r = NLU.parse(frase, ctxNLU('auto'));
+    const lote = Prop.nuevoLote(metodo, metodo === 'ejemplo' ? null : (this.t0 || performance.now()));
+    const agregado = Prop.agregar(r, lote);
+    if (r.intent === 'consulta' || agregado === false) delete Prop.lotes[lote];
+    this.t0 = null; $('#fraseInput').value = '';
+  }
+};
+
+const Foto = {
+  worker: null, t0: null,
+  async cargarTesseract() {
+    if (window.Tesseract) return;
+    await new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'; s.onload = res; s.onerror = () => rej(new Error('No se pudo descargar el motor de lectura. Revise la conexión a internet.')); document.head.appendChild(s); });
+  },
+  progreso(p, txt) { const pr = $('#ocrProg'); pr.hidden = false; pr.firstElementChild.style.width = Math.round(p * 100) + '%'; if (txt) $('#ocrEstado').textContent = txt; },
+  async leer(imagen) {
+    this.t0 = performance.now();
+    $('#ocrTexto').value = ''; this.progreso(0.02, 'Preparando el lector de texto…');
+    try {
+      await this.cargarTesseract();
+      if (!this.worker) {
+        this.worker = await Tesseract.createWorker('spa', 1, {logger: m => { if (m.status === 'recognizing text') this.progreso(0.3 + m.progress * 0.7, 'Leyendo la imagen… ' + Math.round(m.progress * 100) + ' %'); else if (m.progress != null) this.progreso(Math.min(0.3, m.progress * 0.3), 'Descargando modelo de español (solo la primera vez)…'); }});
+      }
+      const {data} = await this.worker.recognize(imagen);
+      this.progreso(1, `Listo: ${data.text.split('\n').filter(l => l.trim()).length} líneas leídas. Revise el texto y toque «Interpretar líneas».`);
+      $('#ocrTexto').value = data.text.trim();
+      this.interpretar();
+    } catch (e) { $('#ocrEstado').innerHTML = `<span class="neg">${esc(e.message || e)}</span> Puede escribir o pegar el texto en el cuadro y tocar «Interpretar líneas».`; }
+  },
+  interpretar() {
+    const modo = $('#fotoModo').value;
+    const lineas = $('#ocrTexto').value.split('\n').map(l => l.trim()).filter(Boolean);
+    let proveedor = null;
+    const lp = lineas.find(l => /proveedor|vendedor|finca|se[ñn]or(es)?\s*:/i.test(l));
+    if (lp) proveedor = lp.replace(/^.*?(proveedor|vendedor)\s*:?\s*/i, '').trim();
+    const lote = Prop.nuevoLote('foto', this.t0 || performance.now());
+    let n = 0;
+    lineas.forEach(l => {
+      const r = NLU.parse(l, ctxNLU(modo === 'entrada' ? 'entrada' : 'auto'));
+      if (!r.items.length && r.intent !== 'abono') return;
+      if (r.intent === 'consulta') return;
+      if (modo === 'entrada' && proveedor && !r.cliente) r.cliente = {nombre:proveedor, nuevo:true};
+      if (Prop.agregar(r, lote)) n++;
+    });
+    if (!n) { delete Prop.lotes[lote]; $('#ocrEstado').innerHTML += ' <span class="neg">No encontré productos del catálogo en el texto.</span>'; }
+    else { $('#ocrEstado').textContent = `Encontré ${n} operación${n > 1 ? 'es' : ''}. Revíselas abajo.`; $('#propTitulo').scrollIntoView({behavior:'smooth'}); }
+  },
+  async archivo(file) {
+    if (!file) return;
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = URL.createObjectURL(file); });
+    const max = 1800, s = Math.min(1, max / Math.max(img.width, img.height));
+    const c = document.createElement('canvas'); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); c.className = 'preview';
+    $('#fotoPreview').innerHTML = ''; $('#fotoPreview').appendChild(c);
+    this.leer(c);
+  },
+  ejemplo() {
+    const c = document.createElement('canvas'); c.width = 1000; c.height = 720; const g = c.getContext('2d');
+    g.fillStyle = '#fffdf8'; g.fillRect(0, 0, c.width, c.height); g.fillStyle = '#111';
+    g.font = 'bold 40px Arial'; g.fillText('REMISION No. 0457', 40, 70);
+    g.font = '28px Arial'; g.fillText('Proveedor: Finca El Rosal', 40, 122); g.fillText('Fecha: ' + fechaLocal(), 40, 162);
+    g.fillRect(40, 186, 920, 3);
+    ['20 bultos papa sabanera a 38.000', '10 bultos papa criolla a 45.000', '15 bultos yuca a 28.000', '8 canastillas tomate a 46.000'].forEach((l, i) => { g.font = '32px Arial'; g.fillText(l, 40, 250 + i * 62); });
+    g.fillRect(40, 500, 920, 3); g.font = '26px Arial'; g.fillText('Recibido por: ____________________', 40, 560);
+    c.className = 'preview'; $('#fotoModo').value = 'entrada';
+    $('#fotoPreview').innerHTML = ''; $('#fotoPreview').appendChild(c);
+    this.leer(c);
+  }
+};
+
+const Form = {
+  t0: null,
+  init() {
+    const f = $('#formVenta');
+    f.addEventListener('focusin', () => { if (!this.t0) this.t0 = performance.now(); });
+    $('#fProducto').addEventListener('change', () => this.prellenar());
+    f.addEventListener('reset', () => setTimeout(() => { this.t0 = null; $('#fFecha').value = fechaLocal(); this.prellenar(); }, 0));
+    f.addEventListener('submit', e => {
+      e.preventDefault();
+      const p = prodById($('#fProducto').value); if (!p) return;
+      const cli = $('#fCliente').value.trim();
+      const r = {frase:'', intent:'venta', cliente: cli ? {nombre:cli} : null, tipo:$('#fTipo').value, medio:$('#fMedio').value, items:[{productoId:p.id, nombre:p.nombre, cantidad:parseFloat($('#fCantidad').value), unidad:p.unidad, precioUnit:parseFloat($('#fPrecio').value), inferido:{}}], avisos:[], confianza:1};
+      const fecha = $('#fFecha').value || fechaLocal();
+      const n0 = D().ventas.length;
+      if (Acciones.guardar(r, 'formulario')) {
+        if (fecha !== fechaLocal()) D().ventas.slice(n0).forEach(v => v.fecha = fecha);
+        if (this.t0) Medicion.registrar({metodo:'formulario', segundos:(performance.now() - this.t0) / 1000, registros:1, correcciones:0, frase:`${p.nombre} (formulario)`});
+        DB.save(); f.reset(); UI.refrescar();
+      }
+    });
+  },
+  prellenar() { const p = prodById($('#fProducto').value); if (!p) return; $('#fUnidad').value = UNIDAD_TXT[p.unidad]; $('#fPrecio').value = p.precioVenta; }
+};
+
+/* =========================================================
+   Medición (tiempos y correcciones)
+   ========================================================= */
+const Medicion = {
+  crono: {t0:null, timer:null},
+  registrar(m) { D().mediciones.push({id:uid(), ts:new Date().toISOString(), fecha:fechaLocal(), hora:horaLocal(), ...m}); DB.save(); },
+  cerrarLote(l) {
+    if (!l.t0 || !l.confirmados || l.metodo === 'ejemplo') return;
+    this.registrar({metodo:l.metodo, segundos:(performance.now() - l.t0) / 1000, registros:l.registros, correcciones:l.correcciones, frase:l.frases.join(' | ').slice(0, 300)});
+  },
+  cronoToggle() {
+    const c = this.crono;
+    if (!c.t0) { c.t0 = performance.now(); $('#cronoBtn').innerHTML = '<i class="bi bi-stop-fill"></i> Detener y guardar'; c.timer = setInterval(() => { const s = Math.floor((performance.now() - c.t0) / 1000); $('#cronoVal').textContent = `${pad(Math.floor(s / 60))}:${pad(s % 60)}`; }, 250); }
+    else {
+      const seg = (performance.now() - c.t0) / 1000, n = Math.max(1, parseInt($('#cronoN').value) || 1);
+      clearInterval(c.timer); c.t0 = null; $('#cronoBtn').innerHTML = '<i class="bi bi-play-fill"></i> Iniciar';
+      this.registrar({metodo:'cuaderno', segundos:seg, registros:n, correcciones:0, frase:`${n} operaciones escritas en papel`});
+      toast(`Guardado: ${num(seg / n, 1)} s por operación en cuaderno`); UI.refrescar();
+    }
+  },
+  cronoCancelar() { clearInterval(this.crono.timer); this.crono.t0 = null; $('#cronoBtn').innerHTML = '<i class="bi bi-play-fill"></i> Iniciar'; $('#cronoVal').textContent = '00:00'; },
+  resumen() {
+    const orden = ['cuaderno','formulario','voz','texto','foto'];
+    const out = {};
+    D().mediciones.forEach(m => { const o = out[m.metodo] || (out[m.metodo] = {metodo:m.metodo, mediciones:0, registros:0, segundos:0, correcciones:0, porReg:[]}); o.mediciones++; o.registros += m.registros; o.segundos += m.segundos; o.correcciones += m.correcciones; o.porReg.push(m.segundos / Math.max(1, m.registros)); });
+    const arr = orden.filter(k => out[k]).map(k => out[k]);
+    arr.forEach(o => { o.prom = o.segundos / Math.max(1, o.registros); const s = [...o.porReg].sort((a, b) => a - b); o.mediana = s.length ? (s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2) : 0; });
+    return arr;
+  },
+  precisionInventario() {
+    const c = D().conteos[D().conteos.length - 1]; if (!c) return null;
+    const sumF = c.items.reduce((s, i) => s + Math.abs(i.fisico), 0), sumD = c.items.reduce((s, i) => s + Math.abs(i.fisico - i.sistema), 0);
+    return {fecha:c.fecha, precision: sumF ? Math.max(0, 1 - sumD / sumF) : 1, items:c.items.length, coinciden:c.items.filter(i => Math.abs(i.fisico - i.sistema) < 1e-6).length};
+  }
+};
+
+/* =========================================================
+   Asistente: cobros y cierre del día por WhatsApp
+   ========================================================= */
+const Bot = {
+  tel(t) { let d = String(t || '').replace(/\D/g, ''); if (d.length === 10 && d.startsWith('3')) d = '57' + d; return d; },
+  abrir(tel, texto) { const t = this.tel(tel); window.open(`https://wa.me/${t}?text=${encodeURIComponent(texto)}`, '_blank'); },
+  mensajeCobro(c) {
+    const neg = D().ajustes.negocio;
+    return `Buen día, ${c.nombre}. Le saluda ${neg}. Le recuerdo con cariño que tiene un saldo pendiente de ${fmt(c.deuda)}${c.desde ? ` (desde el ${fechaCorta(c.desde)})` : ''}. Puede pagar en el puesto o por Nequi. ¡Muchas gracias!`;
+  },
+  cobrar(nombre) { const c = cartera().find(x => strip(x.nombre) === strip(nombre)); if (!c) return; this.abrir(c.cliente ? c.cliente.telefono : '', this.mensajeCobro(c)); },
+  sugeridos() { return cartera().filter(c => c.dias >= (D().ajustes.diasCobro || 8)); },
+  cierreDia() {
+    const hoy = fechaLocal(), v = D().ventas.filter(x => x.fecha === hoy), ab = D().abonos.filter(x => x.fecha === hoy), co = D().compras.filter(x => x.fecha === hoy), me = D().mermas.filter(x => x.fecha === hoy);
+    const tot = v.reduce((s, x) => s + x.total, 0), gan = v.reduce((s, x) => s + x.ganancia, 0), fia = v.filter(x => x.tipo === 'credito').reduce((s, x) => s + x.total, 0);
+    const porProd = {}; v.forEach(x => porProd[x.producto] = (porProd[x.producto] || 0) + x.ganancia);
+    const top = Object.entries(porProd).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([n, g]) => `${n} ${fmt(g)}`).join(', ');
+    const bajos = D().productos.filter(p => p.cantidad <= (p.stockMin || 0)).map(p => p.nombre).join(', ');
+    const txt = `Cierre ${D().ajustes.negocio} — ${hoy}\nVentas: ${fmt(tot)} (${v.length} registros)\nGanancia: ${fmt(gan)}\nFiado hoy: ${fmt(fia)} · Abonos recibidos: ${fmt(ab.reduce((s, x) => s + x.monto, 0))}\nCompras: ${fmt(co.reduce((s, x) => s + x.total, 0))} · Merma: ${fmt(me.reduce((s, x) => s + x.valor, 0))}\nMás ganancia: ${top || '—'}\nPor agotarse: ${bajos || 'nada'}\nCartera total: ${fmt(cartera().reduce((s, c) => s + c.deuda, 0))}\n(Generado por AgroFast)`;
+    this.abrir(D().ajustes.telContador, txt);
+  }
+};
+
+/* =========================================================
+   Exportar: Excel (.xlsx real, sin librerías) y PDF (impresión)
+   ========================================================= */
+const XLSX = (() => {
+  const enc = new TextEncoder();
+  const T = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+  const crc32 = b => { let c = 0xFFFFFFFF; for (let i = 0; i < b.length; i++) c = T[(c ^ b[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
+  const x = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '');
+  const col = i => { let s = ''; i++; while (i > 0) { const m = (i - 1) % 26; s = String.fromCharCode(65 + m) + s; i = Math.floor((i - 1) / 26); } return s; };
+  const HDR = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+  function sheet(rows) {
+    const w = []; rows.forEach(r => r.forEach((v, i) => { w[i] = Math.min(60, Math.max(w[i] || 8, String(v ?? '').length + 2)); }));
+    let s = HDR + '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">';
+    if (w.length) s += '<cols>' + w.map((v, i) => `<col min="${i+1}" max="${i+1}" width="${v}" customWidth="1"/>`).join('') + '</cols>';
+    s += '<sheetData>';
+    rows.forEach((r, ri) => { s += `<row r="${ri+1}">`; r.forEach((v, ci) => { if (v === null || v === undefined || v === '') return; const ref = col(ci) + (ri + 1), st = ri === 0 ? ' s="1"' : ''; s += (typeof v === 'number' && isFinite(v)) ? `<c r="${ref}"${st}><v>${v}</v></c>` : `<c r="${ref}" t="inlineStr"${st}><is><t xml:space="preserve">${x(v)}</t></is></c>`; }); s += '</row>'; });
+    return s + '</sheetData></worksheet>';
+  }
+  function zip(files) {
+    const parts = [], central = []; let off = 0; const d = new Date();
+    const tm = ((d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1)) & 0xFFFF, dt = (((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate()) & 0xFFFF;
+    for (const f of files) {
+      const name = enc.encode(f.name), data = enc.encode(f.data), crc = crc32(data);
+      const h = new DataView(new ArrayBuffer(30));
+      h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(6, 0x0800, true); h.setUint16(8, 0, true); h.setUint16(10, tm, true); h.setUint16(12, dt, true); h.setUint32(14, crc, true); h.setUint32(18, data.length, true); h.setUint32(22, data.length, true); h.setUint16(26, name.length, true); h.setUint16(28, 0, true);
+      parts.push(new Uint8Array(h.buffer), name, data);
+      const c = new DataView(new ArrayBuffer(46));
+      c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true); c.setUint16(8, 0x0800, true); c.setUint16(10, 0, true); c.setUint16(12, tm, true); c.setUint16(14, dt, true); c.setUint32(16, crc, true); c.setUint32(20, data.length, true); c.setUint32(24, data.length, true); c.setUint16(28, name.length, true); c.setUint16(30, 0, true); c.setUint16(32, 0, true); c.setUint16(34, 0, true); c.setUint16(36, 0, true); c.setUint32(38, 0, true); c.setUint32(42, off, true);
+      central.push(new Uint8Array(c.buffer), name);
+      off += 30 + name.length + data.length;
+    }
+    const size = central.reduce((s, a) => s + a.length, 0), e = new DataView(new ArrayBuffer(22));
+    e.setUint32(0, 0x06054b50, true); e.setUint16(4, 0, true); e.setUint16(6, 0, true); e.setUint16(8, files.length, true); e.setUint16(10, files.length, true); e.setUint32(12, size, true); e.setUint32(16, off, true); e.setUint16(20, 0, true);
+    return new Blob([...parts, ...central, new Uint8Array(e.buffer)], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  }
+  function build(sheets) {
+    const seen = new Set();
+    const names = sheets.map(s => { let n = String(s.name).replace(/[\\\/\?\*\[\]:]/g, ' ').slice(0, 31), k = 2; while (seen.has(n)) n = n.slice(0, 28) + ' ' + k++; seen.add(n); return n; });
+    const R = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships';
+    const files = [
+      {name:'[Content_Types].xml', data: HDR + '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>' + sheets.map((s, i) => `<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('') + '</Types>'},
+      {name:'_rels/.rels', data: HDR + `<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="${R}/officeDocument" Target="xl/workbook.xml"/></Relationships>`},
+      {name:'xl/workbook.xml', data: HDR + `<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="${R}"><sheets>` + names.map((n, i) => `<sheet name="${x(n)}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('') + '</sheets></workbook>'},
+      {name:'xl/_rels/workbook.xml.rels', data: HDR + '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' + sheets.map((s, i) => `<Relationship Id="rId${i+1}" Type="${R}/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('') + `<Relationship Id="rId${sheets.length+1}" Type="${R}/styles" Target="styles.xml"/></Relationships>`},
+      {name:'xl/styles.xml', data: HDR + '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>'},
+      ...sheets.map((s, i) => ({name:`xl/worksheets/sheet${i+1}.xml`, data:sheet(s.rows)}))
+    ];
+    return zip(files);
+  }
+  return {build};
+})();
+
+const Export = {
+  periodo() {
+    const hoy = fechaLocal(), v = $('#rPeriodo').value;
+    if (v === 'hoy') return [hoy, hoy, 'Hoy'];
+    if (v === '7') return [addDays(hoy, -6), hoy, 'Últimos 7 días'];
+    if (v === '30') return [addDays(hoy, -29), hoy, 'Últimos 30 días'];
+    if (v === 'mes') return [hoy.slice(0, 8) + '01', hoy, 'Este mes'];
+    const a = $('#rDesde').value || hoy, b = $('#rHasta').value || hoy; return [a, b, `${a} a ${b}`];
+  },
+  datos() {
+    const [a, b, nombre] = this.periodo(); const en = f => f >= a && f <= b;
+    const ventas = D().ventas.filter(v => en(v.fecha)), abonos = D().abonos.filter(x => en(x.fecha)), compras = D().compras.filter(x => en(x.fecha)), mermas = D().mermas.filter(x => en(x.fecha));
+    const rent = {}; ventas.forEach(v => { const r = rent[v.producto] || (rent[v.producto] = {producto:v.producto, unidad:v.unidad, cantidad:0, ventas:0, ganancia:0}); r.cantidad += v.cantidad; r.ventas += v.total; r.ganancia += v.ganancia; });
+    const rentArr = Object.values(rent).sort((x, y) => y.ganancia - x.ganancia);
+    const tot = ventas.reduce((s, v) => s + v.total, 0), gan = ventas.reduce((s, v) => s + v.ganancia, 0);
+    return {a, b, nombre, ventas, abonos, compras, mermas, rentArr, tot, gan, fiado:ventas.filter(v => v.tipo === 'credito').reduce((s, v) => s + v.total, 0), abonado:abonos.reduce((s, x) => s + x.monto, 0), comprado:compras.reduce((s, x) => s + x.total, 0), merma:mermas.reduce((s, x) => s + x.valor, 0), mermaKg:mermas.reduce((s, x) => s + x.kg, 0)};
+  },
+  excel() {
+    const d = this.datos();
+    const sheets = [
+      {name:'Resumen', rows:[['Indicador','Valor'], ['Negocio', D().ajustes.negocio], ['Período', `${d.a} a ${d.b}`], ['Ventas', d.tot], ['Ganancia', d.gan], ['Margen', d.tot ? Math.round(d.gan / d.tot * 1000) / 10 + ' %' : '0 %'], ['Vendido fiado', d.fiado], ['Abonos recibidos', d.abonado], ['Compras', d.comprado], ['Merma (valor a costo)', d.merma], ['Merma (kg)', Math.round(d.mermaKg * 10) / 10], ['Cartera total hoy', cartera().reduce((s, c) => s + c.deuda, 0)], ['Generado', new Date().toLocaleString('es-CO')]]},
+      {name:'Ventas', rows:[['Fecha','Hora','Cliente','Producto','Cantidad','Unidad','Precio unidad','Total','Costo','Ganancia','Tipo','Medio','Registrado por'], ...d.ventas.map(v => [v.fecha, v.hora, v.cliente, v.producto, v.cantidad, UNIDAD_TXT[v.unidad], v.precioUnit, Math.round(v.total), Math.round(v.costo), Math.round(v.ganancia), v.tipo === 'credito' ? 'Fiado' : 'Contado', v.medio, v.metodo])]},
+      {name:'Rentabilidad', rows:[['Producto','Cantidad','Unidad','Ventas','Ganancia','Margen %'], ...d.rentArr.map(r => [r.producto, Math.round(r.cantidad * 1000) / 1000, UNIDAD_TXT[r.unidad], Math.round(r.ventas), Math.round(r.ganancia), r.ventas ? Math.round(r.ganancia / r.ventas * 1000) / 10 : 0])]},
+      {name:'Cartera', rows:[['Cliente','Debe','Pendiente desde','Días','Celular'], ...cartera().map(c => [c.nombre, Math.round(c.deuda), c.desde || '', c.dias, c.cliente ? c.cliente.telefono : ''])]},
+      {name:'Abonos', rows:[['Fecha','Hora','Cliente','Monto','Medio','Registrado por'], ...d.abonos.map(a => [a.fecha, a.hora, a.cliente, a.monto, a.medio, a.metodo])]},
+      {name:'Compras', rows:[['Fecha','Proveedor','Producto','Cantidad','Unidad','Costo unidad','Total','Registrado por'], ...d.compras.map(c => [c.fecha, c.proveedor, c.producto, c.cantidad, UNIDAD_TXT[c.unidad], c.precioUnit, Math.round(c.total), c.metodo])]},
+      {name:'Merma', rows:[['Fecha','Producto','Cantidad','Unidad','Kg','Valor a costo'], ...d.mermas.map(m => [m.fecha, m.producto, m.cantidad, UNIDAD_TXT[m.unidad], Math.round(m.kg * 10) / 10, Math.round(m.valor)])]},
+      {name:'Inventario', rows:[['Producto','Existencia','Unidad','Kg por unidad','Costo','Venta','Margen unidad','Mínimo'], ...D().productos.map(p => [p.nombre, p.cantidad, UNIDAD_TXT[p.unidad], p.pesoKg || '', p.precioCosto, p.precioVenta, p.precioVenta - p.precioCosto, p.stockMin || 0])]},
+      this.hojaMediciones()
+    ];
+    descargar(XLSX.build(sheets), `AgroFast_${d.a}_a_${d.b}.xlsx`);
+    toast('Excel descargado');
+  },
+  hojaMediciones() { return {name:'Medicion', rows:[['Fecha','Hora','Método','Registros','Segundos','Seg por registro','Correcciones','Frase o nota'], ...D().mediciones.map(m => [m.fecha, m.hora, m.metodo, m.registros, Math.round(m.segundos * 10) / 10, Math.round(m.segundos / Math.max(1, m.registros) * 10) / 10, m.correcciones, m.frase || ''])]}; },
+  pdf() {
+    const d = this.datos(); const c = cartera();
+    $('#printArea').innerHTML = `<h1>AgroFast · Reporte de ${esc(D().ajustes.negocio)}</h1><p>Período: ${d.a} a ${d.b} · Generado ${new Date().toLocaleString('es-CO')}</p>
+      <h2>Resumen</h2><table><tbody>
+      <tr><td>Ventas</td><td>${fmt(d.tot)}</td><td>Ganancia</td><td>${fmt(d.gan)} (${d.tot ? pct(d.gan / d.tot) : '0 %'})</td></tr>
+      <tr><td>Vendido fiado</td><td>${fmt(d.fiado)}</td><td>Abonos recibidos</td><td>${fmt(d.abonado)}</td></tr>
+      <tr><td>Compras</td><td>${fmt(d.comprado)}</td><td>Merma</td><td>${fmt(d.merma)} · ${num(d.mermaKg, 1)} kg</td></tr></tbody></table>
+      <h2>Rentabilidad por producto</h2><table><thead><tr><th>#</th><th>Producto</th><th>Cantidad</th><th>Ventas</th><th>Ganancia</th><th>Margen</th></tr></thead><tbody>${d.rentArr.map((r, i) => `<tr><td>${i + 1}</td><td>${esc(r.producto)}</td><td>${num(r.cantidad)} ${UNIDAD_TXT[r.unidad]}</td><td>${fmt(r.ventas)}</td><td>${fmt(r.ganancia)}</td><td>${r.ventas ? pct(r.ganancia / r.ventas) : '—'}</td></tr>`).join('') || '<tr><td colspan="6">Sin ventas en el período</td></tr>'}</tbody></table>
+      <h2>Cartera (hoy)</h2><table><thead><tr><th>Cliente</th><th>Debe</th><th>Pendiente desde</th><th>Días</th></tr></thead><tbody>${c.map(x => `<tr><td>${esc(x.nombre)}</td><td>${fmt(x.deuda)}</td><td>${x.desde || ''}</td><td>${x.dias}</td></tr>`).join('') || '<tr><td colspan="4">Sin deudas</td></tr>'}</tbody></table>
+      <h2>Inventario</h2><table><thead><tr><th>Producto</th><th>Existencia</th><th>Costo</th><th>Venta</th><th>Estado</th></tr></thead><tbody>${D().productos.map(p => `<tr><td>${esc(p.nombre)}</td><td>${num(p.cantidad)} ${UNIDAD_TXT[p.unidad]}</td><td>${fmt(p.precioCosto)}</td><td>${fmt(p.precioVenta)}</td><td>${p.cantidad <= (p.stockMin || 0) ? 'Por agotarse' : 'OK'}</td></tr>`).join('')}</tbody></table>
+      <p style="margin-top:14px;font-size:11px">Generado por AgroFast. Para guardar como PDF elija «Guardar como PDF» en el cuadro de impresión.</p>`;
+    setTimeout(() => window.print(), 50);
+  }
+};
+
+/* =========================================================
+   Interfaz
+   ========================================================= */
+const VISTAS = {
+  inicio:     {t:'Resumen de hoy', i:'bi-speedometer2'},
+  registrar:  {t:'Registrar', i:'bi-mic-fill'},
+  inventario: {t:'Inventario', i:'bi-box-seam'},
+  clientes:   {t:'Clientes y fiados', i:'bi-people-fill'},
+  reportes:   {t:'Reportes', i:'bi-graph-up-arrow'},
+  medicion:   {t:'Medición', i:'bi-stopwatch'},
+  ajustes:    {t:'Ajustes', i:'bi-gear'}
+};
+const vacio = (icono, texto) => `<div class="empty"><i class="bi ${icono}"></i><div>${texto}</div></div>`;
+const UI = {
+  vista: 'inicio',
+  go(v) {
+    this.vista = v;
+    $$('[data-view]').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+    $$('section.view').forEach(s => s.classList.toggle('active', s.id === 'v-' + v));
+    $('#viewTitle').textContent = VISTAS[v].t;
+    this.refrescar(); window.scrollTo({top:0});
+  },
+  sub(group, id) {
+    $$(`.subtabs[data-group="${group}"] [data-sub]`).forEach(b => { b.classList.toggle('active', b.dataset.sub === id); const el = document.getElementById(b.dataset.sub); if (el) el.classList.toggle('active', b.dataset.sub === id); });
+  },
+  refrescar() {
+    this.datalists();
+    $('#viewDate').textContent = new Date().toLocaleDateString('es-CO', {weekday:'long', day:'numeric', month:'long'}) + ' · ' + D().ajustes.negocio;
+    $('#sideNegocio').textContent = D().ajustes.negocio;
+    const f = {inicio:this.inicio, registrar:this.registrar, inventario:this.inventario, clientes:this.clientes, reportes:this.reportes, medicion:this.medicion, ajustes:this.ajustes}[this.vista];
+    if (f) f.call(this);
+  },
+  datalists() {
+    $('#dlClientes').innerHTML = D().clientes.map(c => `<option value="${esc(c.nombre)}">`).join('');
+    const sel = $('#fProducto'), cur = sel.value;
+    sel.innerHTML = D().productos.map(p => `<option value="${p.id}">${esc(p.nombre)} (${num(p.cantidad)} ${UNIDAD_TXT[p.unidad]})</option>`).join('');
+    if (cur && prodById(cur)) sel.value = cur;
+    if (!$('#fPrecio').value) Form.prellenar();
+  },
+  inicio() {
+    const hoy = fechaLocal();
+    const v = D().ventas.filter(x => x.fecha === hoy);
+    const tot = v.reduce((s, x) => s + x.total, 0), gan = v.reduce((s, x) => s + x.ganancia, 0), fia = v.filter(x => x.tipo === 'credito').reduce((s, x) => s + x.total, 0);
+    $('#kVendido').textContent = fmt(tot); $('#kVendidoS').textContent = `${new Set(v.map(x => x.grupo)).size} ventas · fiado ${fmt(fia)}`;
+    $('#kGanancia').textContent = fmt(gan); $('#kGananciaS').textContent = tot ? `margen ${pct(gan / tot)}` : 'sin ventas aún';
+    const c = cartera(); $('#kCartera').textContent = fmt(c.reduce((s, x) => s + x.deuda, 0)); $('#kCarteraS').textContent = `${c.length} cliente${c.length === 1 ? '' : 's'} con deuda`;
+    const mes = hoy.slice(0, 7), me = D().mermas.filter(x => x.fecha.startsWith(mes));
+    $('#kMerma').textContent = fmt(me.reduce((s, x) => s + x.valor, 0)); $('#kMermaS').textContent = `${num(me.reduce((s, x) => s + x.kg, 0), 1)} kg de alimento perdido`;
+    // gráfico 7 días
+    const dias = Array.from({length:7}, (_, i) => addDays(hoy, i - 6)); const vals = dias.map(f => D().ventas.filter(x => x.fecha === f).reduce((s, x) => s + x.total, 0)); const mx = Math.max(1, ...vals);
+    const tot7 = vals.reduce((a, b) => a + b, 0); $('#chart7Total').textContent = fmt(tot7);
+    $('#chart7').innerHTML = `<svg viewBox="0 0 700 230" width="100%" role="img" aria-label="Ventas de los últimos 7 días">
+      ${[0.25, 0.5, 0.75, 1].map(f => `<line x1="10" x2="690" y1="${190 - f * 150}" y2="${190 - f * 150}" stroke="#ECE8DF" stroke-dasharray="4 6"/>`).join('')}
+      <line x1="10" x2="690" y1="190" y2="190" stroke="#D9D3C5"/>
+      ${dias.map((f, i) => { const h = vals[i] / mx * 150; const x = 28 + i * 96; const esHoy = f === hoy; return `<rect x="${x}" y="${190 - h}" width="60" height="${Math.max(h, 2)}" rx="8" fill="${esHoy ? '#E9A923' : '#2F6B3F'}" opacity="${esHoy ? 1 : 0.88}"></rect><text x="${x + 30}" y="214" text-anchor="middle" font-size="14" fill="${esHoy ? '#16241A' : '#6B7466'}" font-weight="${esHoy ? 700 : 500}">${esHoy ? 'Hoy' : new Date(f + 'T12:00:00').toLocaleDateString('es-CO', {weekday:'short'}).replace('.', '')}</text><text x="${x + 30}" y="${182 - h}" text-anchor="middle" font-size="13" font-weight="700" fill="#16241A">${vals[i] ? (vals[i] >= 1e6 ? num(vals[i] / 1e6, 1) + 'M' : Math.round(vals[i] / 1000) + 'k') : ''}</text>`; }).join('')}</svg>`;
+    const porP = {}; v.forEach(x => { const o = porP[x.producto] || (porP[x.producto] = {c:0, g:0, u:x.unidad}); o.c += x.cantidad; o.g += x.ganancia; });
+    const top = Object.entries(porP).sort((a, b) => b[1].g - a[1].g).slice(0, 4);
+    $('#topHoy').innerHTML = top.length ? top.map(([n, o], i) => `<div class="d-flex align-items-center gap-3 py-2 ${i ? 'border-top' : ''}"><span class="rank">${i + 1}</span><div class="flex-grow-1 lh-sm"><div class="fw-semibold">${esc(n)}</div><div class="small text-body-secondary">${num(o.c)} ${UNIDAD_TXT[o.u]}</div></div><span class="fw-bold text-success">${fmt(o.g)}</span></div>`).join('') : vacio('bi-mic', 'Todavía no hay ventas hoy.<br>Toque el micrófono y dicte la primera.');
+    const sug = Bot.sugeridos();
+    $('#cobrosN').textContent = sug.length || '';
+    $('#cobrosSug').innerHTML = sug.length ? sug.map(s => `<div class="d-flex align-items-center gap-3 py-2 border-top"><span class="avatar">${esc(s.nombre.replace(/^(doña|don|señora|señor)\s+/i, '').charAt(0))}</span><div class="flex-grow-1 lh-sm"><div class="fw-semibold">${esc(s.nombre)}</div><div class="small text-body-secondary">${s.dias} días sin pagar</div></div><span class="fw-bold text-danger me-2">${fmt(s.deuda)}</span><button class="btn btn-wa btn-sm" data-cobrar="${esc(s.nombre)}"><i class="bi bi-whatsapp"></i></button></div>`).join('') : vacio('bi-emoji-smile', `Nadie tiene fiados de más de ${D().ajustes.diasCobro} días sin pagar.`);
+    const bajos = D().productos.filter(p => p.cantidad <= (p.stockMin || 0));
+    $('#stockN').textContent = bajos.length || '';
+    $('#stockBajo').innerHTML = bajos.length ? bajos.map(p => { const vend = D().ventas.filter(x => x.productoId === p.id && x.fecha >= addDays(hoy, -6)).reduce((s, x) => s + x.cantidad, 0) / 7; const pctv = Math.min(100, p.stockMin ? p.cantidad / p.stockMin * 100 : 0); return `<div class="py-2 border-top"><div class="d-flex justify-content-between"><span class="fw-semibold">${esc(p.nombre)}</span><span class="small text-danger fw-semibold">${num(p.cantidad)} ${UNIDAD_TXT[p.unidad]}</span></div><div class="progress my-1" style="height:6px"><div class="progress-bar bg-danger" style="width:${pctv}%"></div></div><div class="small text-body-secondary">Mínimo ${num(p.stockMin)} · ${vend > 0 ? 'alcanza para ≈ ' + num(p.cantidad / vend, 1) + ' días' : 'sin ventas recientes'}</div></div>`; }).join('') : vacio('bi-check2-circle', 'Todo el inventario está por encima del mínimo.');
+    $('#alertasInicio').innerHTML = D().ventas.some(v => v.metodo === 'datos') ? '<div class="alert alert-info d-flex gap-2 align-items-center py-2"><i class="bi bi-info-circle-fill"></i><div>Hay ventas de ejemplo cargadas. Quítelas en <a href="#" data-go="ajustes" class="alert-link">Ajustes</a> antes de usar la app de verdad.</div></div>' : '';
+  },
+  registrar() {
+    const rows = [
+      ...D().ventas.map(v => ({k:'venta', id:v.id, f:v.fecha + ' ' + v.hora, t:v.tipo === 'credito' ? ['Fiado', 'bg-danger-subtle text-danger-emphasis'] : ['Venta', 'bg-success-subtle text-success-emphasis'], d:`${num(v.cantidad)} ${UNIDAD_TXT[v.unidad]} de ${v.producto}`, s:v.cliente, val:v.total, m:v.metodo})),
+      ...D().abonos.map(a => ({k:'abono', id:a.id, f:a.fecha + ' ' + a.hora, t:['Abono', 'bg-warning-subtle text-warning-emphasis'], d:a.cliente, s:a.medio, val:a.monto, m:a.metodo})),
+      ...D().compras.map(c => ({k:'compra', id:c.id, f:c.fecha + ' ' + c.hora, t:['Entrada', 'bg-primary-subtle text-primary-emphasis'], d:`${num(c.cantidad)} ${UNIDAD_TXT[c.unidad]} de ${c.producto}`, s:c.proveedor, val:c.total, m:c.metodo})),
+      ...D().mermas.map(m => ({k:'merma', id:m.id, f:m.fecha + ' ' + m.hora, t:['Merma', 'bg-secondary-subtle text-secondary-emphasis'], d:`${num(m.cantidad)} ${UNIDAD_TXT[m.unidad]} de ${m.producto}`, s:'Producto dañado', val:m.valor, m:m.metodo}))
+    ].sort((a, b) => b.f.localeCompare(a.f)).slice(0, 15);
+    $('#ultimos').innerHTML = rows.length ? rows.map(r => `<tr><td class="small text-body-secondary text-nowrap">${esc(fechaCorta(r.f.slice(0, 10)) + ' · ' + r.f.slice(11))}</td><td><span class="badge rounded-pill ${r.t[1]}">${r.t[0]}</span></td><td><div class="fw-semibold">${esc(r.d)}</div><div class="small text-body-secondary">${esc(r.s)}</div></td><td class="text-end fw-semibold text-nowrap">${fmt(r.val)}</td><td class="small text-body-secondary text-nowrap">${METODO_TXT[r.m] || r.m}</td><td class="text-end"><button class="btn btn-sm btn-light" data-del="${r.k}:${r.id}" title="Eliminar"><i class="bi bi-trash3"></i></button></td></tr>`).join('') : `<tr><td colspan="6">${vacio('bi-journal', 'Sin registros todavía')}</td></tr>`;
+  },
+  inventario() {
+    const q = strip($('#buscarInv').value);
+    $('#tInv').innerHTML = D().productos.filter(p => !q || strip(p.nombre).includes(q)).map(p => { const bajo = p.cantidad <= (p.stockMin || 0); const mg = p.precioVenta ? (p.precioVenta - p.precioCosto) / p.precioVenta : 0; return `<tr><td><div class="fw-semibold">${esc(p.nombre)}</div><div class="small text-body-secondary">${p.pesoKg && p.unidad !== 'kg' ? p.pesoKg + ' kg por unidad' : ''}</div></td><td class="text-end"><span class="fw-bold fs-6">${num(p.cantidad)}</span> <span class="small text-body-secondary">${UNIDAD_TXT[p.unidad]}</span></td><td class="text-end">${fmt(p.precioCosto)}</td><td class="text-end">${fmt(p.precioVenta)}</td><td class="text-end"><span class="badge bg-light text-dark border">${pct(mg)}</span></td><td class="text-end">${num(p.stockMin || 0)}</td><td>${bajo ? '<span class="badge rounded-pill bg-danger-subtle text-danger-emphasis"><i class="bi bi-exclamation-circle"></i> Por agotarse</span>' : '<span class="badge rounded-pill bg-success-subtle text-success-emphasis">OK</span>'}</td><td class="text-end"><button class="btn btn-sm btn-outline-secondary" data-ajustar="${p.id}"><i class="bi bi-pencil"></i> Ajustar</button></td></tr>`; }).join('') || `<tr><td colspan="8">${vacio('bi-search', 'Sin productos')}</td></tr>`;
+    $('#tProd').innerHTML = D().productos.map(p => `<tr><td class="fw-semibold">${esc(p.nombre)}</td><td class="small text-body-secondary">${esc((p.alias || []).join(', '))}</td><td>${UNIDAD_TXT[p.unidad]}</td><td class="text-end">${p.pesoKg || ''}</td><td class="text-end text-nowrap"><button class="btn btn-sm btn-outline-secondary" data-editp="${p.id}"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-light" data-delp="${p.id}"><i class="bi bi-trash3"></i></button></td></tr>`).join('');
+    $('#tConteo').innerHTML = D().productos.map(p => `<tr><td class="fw-semibold">${esc(p.nombre)}</td><td class="text-end">${num(p.cantidad)}</td><td class="small text-body-secondary">${UNIDAD_TXT[p.unidad]}</td><td><input type="number" step="0.01" data-conteo="${p.id}" placeholder="—" class="form-control form-control-sm" style="max-width:140px"></td></tr>`).join('');
+    const TIPO = {entrada:['Entrada','bi-arrow-up-circle-fill text-success'], salida:['Salida','bi-arrow-down-circle-fill text-danger'], merma:['Merma','bi-trash3-fill text-secondary'], ajuste:['Ajuste','bi-pencil-fill text-warning']};
+    $('#tMov').innerHTML = D().movimientos.slice().reverse().slice(0, 150).map(m => `<tr><td class="small text-body-secondary text-nowrap">${esc(fechaCorta(m.fecha))} · ${new Date(m.ts).toLocaleTimeString('es-CO', {hour:'2-digit', minute:'2-digit'})}</td><td class="fw-semibold">${esc(m.producto)}</td><td class="text-nowrap"><i class="bi ${(TIPO[m.tipo] || ['', ''])[1]}"></i> ${(TIPO[m.tipo] || [m.tipo])[0]}</td><td class="text-end">${num(m.cantidad)}</td><td class="text-end">${num(m.resultante)}</td><td class="small text-body-secondary">${esc(m.motivo)}</td></tr>`).join('') || `<tr><td colspan="6">${vacio('bi-arrow-left-right', 'Sin movimientos')}</td></tr>`;
+  },
+  clientes() {
+    const c = cartera(); const conDeuda = new Set(c.map(x => strip(x.nombre)));
+    const sin = D().clientes.filter(x => !conDeuda.has(strip(x.nombre))).map(x => ({nombre:x.nombre, deuda:0, desde:null, dias:0, cliente:x}));
+    const total = c.reduce((s, x) => s + x.deuda, 0); $('#carteraTotal').textContent = fmt(total);
+    $('#tCartera').innerHTML = [...c, ...sin].map(x => `<tr><td><div class="d-flex align-items-center gap-2"><span class="avatar ${x.deuda ? '' : 'avatar-muted'}">${esc(x.nombre.replace(/^(doña|don|señora|señor)\s+/i, '').charAt(0))}</span><div class="lh-sm"><div class="fw-semibold">${esc(x.nombre)}</div><div class="small text-body-secondary">${esc((x.cliente && x.cliente.nota) || '')}</div></div></div></td><td class="text-end fw-bold ${x.deuda ? 'text-danger' : 'text-body-secondary'}">${fmt(x.deuda)}</td><td class="small">${x.desde ? fechaCorta(x.desde) : '—'}</td><td class="text-end">${x.desde ? `<span class="badge rounded-pill ${x.dias >= D().ajustes.diasCobro ? 'bg-danger-subtle text-danger-emphasis' : 'bg-light text-dark border'}">${x.dias} d</span>` : ''}</td><td class="small text-body-secondary">${esc(x.cliente ? x.cliente.telefono : '')}</td><td class="text-end text-nowrap">${x.deuda ? `<button class="btn btn-wa btn-sm" data-cobrar="${esc(x.nombre)}"><i class="bi bi-whatsapp"></i> Cobrar</button> ` : ''}<button class="btn btn-sm btn-outline-secondary" data-hist="${esc(x.nombre)}"><i class="bi bi-clock-history"></i></button></td></tr>`).join('') || `<tr><td colspan="6">${vacio('bi-people', 'Sin clientes')}</td></tr>`;
+  },
+  historial(nombre) {
+    const k = strip(nombre);
+    const mv = [...D().ventas.filter(v => strip(v.cliente) === k).map(v => ({f:v.fecha + ' ' + v.hora, t:v.tipo === 'credito' ? 'Fiado' : 'Contado', d:`${num(v.cantidad)} ${UNIDAD_TXT[v.unidad]} de ${v.producto}`, cargo:v.tipo === 'credito' ? v.total : 0, abono:0, total:v.total})), ...D().abonos.filter(a => strip(a.cliente) === k).map(a => ({f:a.fecha + ' ' + a.hora, t:'Abono', d:a.medio, cargo:0, abono:a.monto, total:a.monto}))].sort((a, b) => a.f.localeCompare(b.f));
+    let saldo = 0;
+    $('#histCard').hidden = false; $('#histTitulo').textContent = 'Historial de ' + nombre;
+    $('#histCliente').innerHTML = `<div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr><th>Fecha</th><th>Movimiento</th><th>Detalle</th><th class="text-end">Valor</th><th class="text-end">Saldo</th></tr></thead><tbody>${mv.map(m => { saldo += m.cargo - m.abono; return `<tr><td class="small text-body-secondary">${esc(m.f)}</td><td>${m.t}</td><td>${esc(m.d)}</td><td class="text-end">${fmt(m.total)}</td><td class="text-end fw-semibold ${saldo > 0 ? 'text-danger' : ''}">${fmt(saldo)}</td></tr>`; }).join('') || `<tr><td colspan="5">${vacio('bi-clock-history', 'Sin movimientos')}</td></tr>`}</tbody></table></div>`;
+    $('#histCard').scrollIntoView({behavior:'smooth'});
+  },
+  reportes() {
+    const per = $('#rPeriodo').value; $('#rRango').hidden = per !== 'rango';
+    const d = Export.datos();
+    const K = (t, v, s, icon, ic, cls = '') => `<div class="col-6 col-xl-3"><div class="card kpi h-100"><div class="card-body"><div class="d-flex justify-content-between align-items-start"><span class="kpi-label">${t}</span><span class="ic ${ic}"><i class="bi ${icon}"></i></span></div><div class="kpi-value ${cls}">${v}</div><div class="kpi-sub">${s}</div></div></div></div>`;
+    $('#rKpis').innerHTML = K('Ventas', fmt(d.tot), `${new Set(d.ventas.map(v => v.grupo)).size} ventas · ${d.nombre}`, 'bi-cash-stack', 'ic-green') + K('Ganancia', fmt(d.gan), d.tot ? 'margen ' + pct(d.gan / d.tot) : '—', 'bi-graph-up-arrow', 'ic-green', 'text-success') + K('Fiado', fmt(d.fiado), `abonos ${fmt(d.abonado)}`, 'bi-credit-card-2-front', 'ic-clay', 'text-danger') + K('Merma', fmt(d.merma), `${num(d.mermaKg, 1)} kg · compras ${fmt(d.comprado)}`, 'bi-trash3', 'ic-harvest');
+    const mx = Math.max(1, ...d.rentArr.map(r => r.ganancia));
+    $('#tRent').innerHTML = d.rentArr.map((r, i) => `<tr><td><span class="rank ${i < 5 ? '' : 'rank-muted'}">${i + 1}</span></td><td class="fw-semibold">${esc(r.producto)}</td><td class="text-end text-nowrap">${num(r.cantidad)} <span class="small text-body-secondary">${UNIDAD_TXT[r.unidad]}</span></td><td class="text-end">${fmt(r.ventas)}</td><td class="text-end fw-bold text-success">${fmt(r.ganancia)}</td><td class="text-end">${r.ventas ? pct(r.ganancia / r.ventas) : '—'}</td><td style="min-width:120px"><div class="progress" style="height:8px"><div class="progress-bar" style="width:${Math.max(0, r.ganancia / mx * 100)}%;background:${i < 5 ? '#2F6B3F' : '#B9C2B5'}"></div></div></td></tr>`).join('') || `<tr><td colspan="7">${vacio('bi-bar-chart', 'Sin ventas en el período')}</td></tr>`;
+    const met = {}; d.ventas.forEach(v => met[v.metodo] = (met[v.metodo] || 0) + 1); const tm = d.ventas.length || 1;
+    $('#rMetodo').innerHTML = Object.keys(met).length ? Object.entries(met).sort((a, b) => b[1] - a[1]).map(([m, n]) => `<div class="mb-3"><div class="d-flex small mb-1"><span>${METODO_TXT[m] || m}</span><b class="ms-auto">${n} · ${pct(n / tm)}</b></div><div class="progress" style="height:8px"><div class="progress-bar" style="width:${n / tm * 100}%;background:#2F6B3F"></div></div></div>`).join('') : vacio('bi-mic', 'Sin ventas');
+    const dias = {}; d.ventas.forEach(v => dias[v.fecha] = (dias[v.fecha] || 0) + v.total); const md = Math.max(1, ...Object.values(dias));
+    $('#rDias').innerHTML = Object.keys(dias).length ? Object.entries(dias).sort().map(([f, t]) => `<div class="mb-2"><div class="d-flex small mb-1"><span>${new Date(f + 'T12:00:00').toLocaleDateString('es-CO', {weekday:'short', day:'numeric', month:'short'})}</span><b class="ms-auto">${fmt(t)}</b></div><div class="progress" style="height:8px"><div class="progress-bar" style="width:${t / md * 100}%;background:#E9A923"></div></div></div>`).join('') : vacio('bi-calendar3', 'Sin ventas');
+  },
+  medicion() {
+    const res = Medicion.resumen(); const cua = res.find(r => r.metodo === 'cuaderno'); const voz = res.find(r => r.metodo === 'voz');
+    $('#medHero').innerHTML = cua && voz ? `<div class="kpi-value text-success">−${pct(Math.max(0, 1 - voz.prom / cua.prom))}</div><div class="kpi-sub">tiempo por registro con voz frente al cuaderno (${num(voz.prom, 1)} s vs ${num(cua.prom, 1)} s)</div>` : `<div class="kpi-value text-body-secondary">—</div><div class="kpi-sub">Falta medir ${!cua ? 'el cuaderno' : ''}${!cua && !voz ? ' y ' : ''}${!voz ? 'la voz' : ''}</div>`;
+    $('#medResumen').innerHTML = res.length ? `<div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr><th>Método</th><th class="text-end">Mediciones</th><th class="text-end">Registros</th><th class="text-end">Seg/registro</th><th class="text-end">Mediana</th><th class="text-end">Sin corregir</th><th class="text-end">vs. cuaderno</th></tr></thead><tbody>${res.map(r => { const ia = ['voz','foto','texto'].includes(r.metodo); return `<tr><td class="fw-semibold">${METODO_TXT[r.metodo] || r.metodo}</td><td class="text-end">${r.mediciones}</td><td class="text-end">${r.registros}</td><td class="text-end fw-bold">${num(r.prom, 1)} s</td><td class="text-end">${num(r.mediana, 1)} s</td><td class="text-end">${ia ? pct(Math.max(0, r.registros - r.correcciones) / Math.max(1, r.registros)) : '—'}</td><td class="text-end">${cua && r.metodo !== 'cuaderno' ? `<span class="badge rounded-pill ${r.prom < cua.prom ? 'bg-success-subtle text-success-emphasis' : 'bg-danger-subtle text-danger-emphasis'}">${r.prom < cua.prom ? '−' : '+'}${pct(Math.abs(1 - r.prom / cua.prom))}</span>` : '—'}</td></tr>`; }).join('')}</tbody></table></div><p class="small text-body-secondary mt-2 mb-0">«Sin corregir» = (registros − campos corregidos) ÷ registros: una cota inferior de la precisión de la IA.</p>` : vacio('bi-stopwatch', 'Aún no hay mediciones.<br>Cronometre el cuaderno y luego dicte las mismas operaciones.');
+    $('#guion10').innerHTML = GUION10.map((g, i) => `<li class="list-group-item d-flex gap-2"><span class="rank rank-sm">${i + 1}</span><span>${esc(g)}</span></li>`).join('');
+    const pi = Medicion.precisionInventario();
+    $('#medInv').innerHTML = pi ? `<div class="kpi-value text-success">${pct(pi.precision)}</div><div class="kpi-sub">Último conteo físico (${pi.fecha}): ${pi.coinciden} de ${pi.items} productos coinciden exactamente.</div>` : `<div class="kpi-value text-body-secondary">—</div><div class="kpi-sub">Sin conteos. Hágalo en Inventario → Conteo físico.</div>`;
+    $('#tMed').innerHTML = D().mediciones.slice().reverse().map(m => `<tr><td class="small text-body-secondary text-nowrap">${esc(m.fecha + ' ' + m.hora)}</td><td class="text-nowrap">${METODO_TXT[m.metodo] || m.metodo}</td><td class="text-end">${m.registros}</td><td class="text-end">${num(m.segundos, 1)}</td><td class="text-end fw-bold">${num(m.segundos / Math.max(1, m.registros), 1)}</td><td class="text-end">${m.correcciones}</td><td class="small text-body-secondary">${esc(m.frase || '')}</td></tr>`).join('') || `<tr><td colspan="7">${vacio('bi-list-check', 'Sin mediciones')}</td></tr>`;
+  },
+  ajustes() {
+    const a = D().ajustes; $('#sNegocio').value = a.negocio; $('#sContador').value = a.telContador; $('#sDias').value = a.diasCobro; $('#sHablar').checked = !!a.hablar;
+  }
+};
+
+/* =========================================================
+   Datos de ejemplo
+   ========================================================= */
+function cargarEjemplo() {
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const hoy = fechaLocal(); const P = D().productos, C = D().clientes;
+  for (let d = 7; d >= 1; d--) {
+    const f = addDays(hoy, -d); const n = 5 + Math.floor(rnd() * 5);
+    for (let i = 0; i < n; i++) {
+      const p = P[Math.floor(rnd() * P.length)], c = C[Math.floor(rnd() * C.length)];
+      const q = p.unidad === 'kg' ? 5 + Math.floor(rnd() * 20) : 1 + Math.floor(rnd() * 5);
+      const precio = Math.round(p.precioVenta * (0.95 + rnd() * 0.1) / 100) * 100; const total = q * precio, costo = q * p.precioCosto;
+      const credito = rnd() < 0.35;
+      D().ventas.push({id:uid(), grupo:uid(), fecha:f, hora:`${pad(4 + Math.floor(rnd() * 8))}:${pad(Math.floor(rnd() * 60))}`, cliente:c.nombre, productoId:p.id, producto:p.nombre, cantidad:q, unidad:p.unidad, precioUnit:precio, total, costo, ganancia:total - costo, tipo:credito ? 'credito' : 'contado', medio:credito ? '' : MEDIOS[Math.floor(rnd() * 3)], metodo:'datos', frase:''});
+    }
+    if (rnd() < 0.5) { const c = C[Math.floor(rnd() * C.length)]; D().abonos.push({id:uid(), fecha:f, hora:'15:00', cliente:c.nombre, monto:Math.round(50 + rnd() * 100) * 1000, medio:'Nequi', metodo:'datos'}); }
+  }
+  const pm = P.find(p => p.unidad !== 'kg' && p.pesoKg) || P[0];
+  if (pm) D().mermas.push({id:uid(), fecha:addDays(hoy, -3), hora:'16:00', productoId:pm.id, producto:pm.nombre, cantidad:0.4, unidad:pm.unidad, kg:0.4 * (pm.pesoKg || 0), valor:0.4 * pm.precioCosto, metodo:'datos', frase:''});
+  DB.save(); UI.refrescar(); toast('Ventas de ejemplo cargadas (no cambian el inventario ni la medición)');
+}
+function quitarEjemplo() {
+  D().ventas = D().ventas.filter(v => v.metodo !== 'datos'); D().abonos = D().abonos.filter(v => v.metodo !== 'datos'); D().mermas = D().mermas.filter(v => v.metodo !== 'datos');
+  DB.save(); UI.refrescar(); toast('Datos de ejemplo eliminados');
+}
+
+/* =========================================================
+   Eventos
+   ========================================================= */
+function init() {
+  DB.load();
+  document.addEventListener('click', e => { const b = e.target.closest('[data-view]'); if (b) UI.go(b.dataset.view); });
+  document.addEventListener('click', e => {
+    const t = e.target.closest('[data-go],[data-cobrar],[data-del],[data-hist],[data-ajustar],[data-editp],[data-delp],.subtabs [data-sub]');
+    if (!t) return;
+    if (t.matches('.subtabs [data-sub]')) { UI.sub(t.closest('.subtabs').dataset.group, t.dataset.sub); return; }
+    if (t.dataset.go) { e.preventDefault(); UI.go(t.dataset.go); }
+    if (t.dataset.cobrar) Bot.cobrar(t.dataset.cobrar);
+    if (t.dataset.del) { const [k, id] = t.dataset.del.split(':'); Acciones.eliminar(k, id); }
+    if (t.dataset.hist) UI.historial(t.dataset.hist);
+    if (t.dataset.ajustar) { const p = prodById(t.dataset.ajustar); const v = prompt(`Nueva existencia de ${p.nombre} (${UNIDAD_TXT[p.unidad]}):`, p.cantidad); if (v === null) return; const n = parseFloat(String(v).replace(',', '.')); if (!isFinite(n) || n < 0) return toast('Cantidad no válida'); const dif = n - p.cantidad; p.cantidad = n; mov(p, 'ajuste', Math.abs(dif), `Ajuste manual (${dif >= 0 ? '+' : '−'}${num(Math.abs(dif))})`); DB.save(); UI.refrescar(); }
+    if (t.dataset.editp) { const p = prodById(t.dataset.editp); $('#pId').value = p.id; $('#pNombre').value = p.nombre; $('#pAlias').value = (p.alias || []).join(', '); $('#pUnidad').value = p.unidad; $('#pPeso').value = p.pesoKg || ''; $('#pCantidad').value = p.cantidad; $('#pCosto').value = p.precioCosto; $('#pVenta').value = p.precioVenta; $('#pMin').value = p.stockMin || 0; $('#prodFormTitulo').textContent = 'Editar ' + p.nombre; $('#formProducto').scrollIntoView({behavior:'smooth'}); }
+    if (t.dataset.delp) { const p = prodById(t.dataset.delp); if (confirm(`¿Eliminar ${p.nombre} del catálogo? Las ventas pasadas se conservan.`)) { D().productos = D().productos.filter(x => x.id !== p.id); DB.save(); UI.refrescar(); } }
+  });
+  // Registrar
+  $('#micBtn').onclick = () => Voz.iniciar();
+  $('#fab').onclick = $('#fabM').onclick = () => { UI.go('registrar'); UI.sub('reg', 'reg-voz'); setTimeout(() => Voz.iniciar(), 150); };
+  $('#fraseInput').addEventListener('input', () => { if (!Texto.t0) Texto.t0 = performance.now(); });
+  $('#fraseInput').addEventListener('keydown', e => { if (e.key === 'Enter') Texto.procesar($('#fraseInput').value, 'texto'); });
+  $('#fraseBtn').onclick = () => Texto.procesar($('#fraseInput').value, 'texto');
+  $('#chipsEjemplo').innerHTML = EJEMPLOS.map(x => `<button class="chip" type="button">${esc(x)}</button>`).join('');
+  $('#chipsEjemplo').addEventListener('click', e => { const b = e.target.closest('.chip'); if (b) Texto.procesar(b.textContent, 'ejemplo'); });
+  $('#fotoFile').addEventListener('change', e => Foto.archivo(e.target.files[0]));
+  $('#fotoEjemplo').onclick = () => Foto.ejemplo();
+  $('#ocrInterpretar').onclick = () => { if (!Foto.t0) Foto.t0 = performance.now(); Foto.interpretar(); };
+  $('#fMedio').innerHTML = MEDIOS.map(m => `<option>${m}</option>`).join(''); $('#aMedio').innerHTML = MEDIOS.map(m => `<option>${m}</option>`).join('');
+  $('#fFecha').value = fechaLocal();
+  Form.init();
+  // Inventario
+  $('#buscarInv').addEventListener('input', () => UI.inventario());
+  $('#formProducto').addEventListener('submit', e => {
+    e.preventDefault();
+    const id = $('#pId').value, datos = {nombre:$('#pNombre').value.trim(), alias:$('#pAlias').value.split(',').map(s => s.trim()).filter(Boolean), unidad:$('#pUnidad').value, pesoKg:parseFloat($('#pPeso').value) || ($('#pUnidad').value === 'kg' ? 1 : 0), cantidad:parseFloat($('#pCantidad').value) || 0, precioCosto:parseFloat($('#pCosto').value) || 0, precioVenta:parseFloat($('#pVenta').value) || 0, stockMin:parseFloat($('#pMin').value) || 0};
+    if (!datos.nombre) return;
+    if (id) { const p = prodById(id); const dif = datos.cantidad - p.cantidad; Object.assign(p, datos); if (Math.abs(dif) > 1e-9) mov(p, 'ajuste', Math.abs(dif), 'Edición de producto'); }
+    else { const p = {id:uid(), ...datos}; D().productos.push(p); mov(p, 'entrada', p.cantidad, 'Existencia inicial'); }
+    DB.save(); e.target.reset(); $('#pId').value = ''; $('#prodFormTitulo').textContent = 'Agregar producto'; UI.refrescar(); toast('Producto guardado');
+  });
+  $('#pCancelar').onclick = () => { $('#formProducto').reset(); $('#pId').value = ''; $('#prodFormTitulo').textContent = 'Agregar producto'; };
+  $('#btnConteo').onclick = () => {
+    const items = $$('[data-conteo]').filter(i => i.value !== '').map(i => { const p = prodById(i.dataset.conteo); return {productoId:p.id, producto:p.nombre, sistema:p.cantidad, fisico:parseFloat(i.value)}; });
+    if (!items.length) return toast('Escriba al menos un conteo');
+    D().conteos.push({id:uid(), fecha:fechaLocal(), items});
+    if ($('#conteoAjustar').checked) items.forEach(it => { const p = prodById(it.productoId); const dif = it.fisico - p.cantidad; if (Math.abs(dif) > 1e-9) { p.cantidad = it.fisico; mov(p, 'ajuste', Math.abs(dif), 'Ajuste por conteo físico'); } });
+    DB.save(); const pi = Medicion.precisionInventario();
+    $('#conteoRes').innerHTML = `<div class="alert alert-success mb-0">Precisión del inventario: <b>${pct(pi.precision)}</b> (${pi.coinciden} de ${pi.items} productos coinciden).</div>`;
+    UI.refrescar();
+  };
+  // Clientes
+  $('#btnAbono').onclick = () => { const r = {intent:'abono', cliente:{nombre:$('#aCliente').value.trim()}, monto:parseFloat($('#aMonto').value) || 0, medio:$('#aMedio').value, items:[]}; if (Acciones.guardar(r, 'formulario')) { $('#aMonto').value = ''; UI.refrescar(); } };
+  $('#btnCliente').onclick = () => { const n = $('#cNombre').value.trim(); if (!n) return toast('Escriba el nombre'); let c = D().clientes.find(x => strip(x.nombre) === strip(n)); if (!c) { c = {id:uid(), nombre:n, telefono:'', nota:''}; D().clientes.push(c); } c.telefono = $('#cTel').value.trim(); if ($('#cNota').value.trim()) c.nota = $('#cNota').value.trim(); DB.save(); ['#cNombre', '#cTel', '#cNota'].forEach(s => $(s).value = ''); UI.refrescar(); toast('Cliente guardado'); };
+  $('#cNombre').addEventListener('change', () => { const c = D().clientes.find(x => strip(x.nombre) === strip($('#cNombre').value)); if (c) { $('#cTel').value = c.telefono || ''; $('#cNota').value = c.nota || ''; } });
+  // Reportes
+  ['#rPeriodo', '#rDesde', '#rHasta'].forEach(s => $(s).addEventListener('change', () => UI.reportes()));
+  $('#btnExcel').onclick = () => Export.excel();
+  $('#btnPDF').onclick = () => Export.pdf();
+  $('#btnCierre').onclick = () => Bot.cierreDia();
+  // Medición
+  $('#cronoBtn').onclick = () => Medicion.cronoToggle();
+  $('#cronoCancel').onclick = () => Medicion.cronoCancelar();
+  $('#btnMedExcel').onclick = () => { const r = Medicion.resumen(); descargar(XLSX.build([{name:'Resumen', rows:[['Método','Mediciones','Registros','Seg por registro (promedio)','Mediana','Campos corregidos'], ...r.map(o => [o.metodo, o.mediciones, o.registros, Math.round(o.prom * 10) / 10, Math.round(o.mediana * 10) / 10, o.correcciones])]}, Export.hojaMediciones(), {name:'Conteos', rows:[['Fecha','Producto','Registrado','Contado','Diferencia'], ...D().conteos.flatMap(c => c.items.map(i => [c.fecha, i.producto, i.sistema, i.fisico, Math.round((i.fisico - i.sistema) * 1000) / 1000]))]}]), `AgroFast_mediciones_${fechaLocal()}.xlsx`); };
+  $('#btnMedBorrar').onclick = () => { if (confirm('¿Borrar todas las mediciones?')) { D().mediciones = []; D().conteos = []; DB.save(); UI.refrescar(); } };
+  // Ajustes
+  $('#btnAjustes').onclick = () => { Object.assign(D().ajustes, {negocio:$('#sNegocio').value.trim() || DEF_AJUSTES.negocio, telContador:$('#sContador').value.trim(), diasCobro:parseInt($('#sDias').value) || 8, hablar:$('#sHablar').checked}); DB.save(); toast('Ajustes guardados'); };
+  $('#btnEjemplo').onclick = cargarEjemplo;
+  $('#btnQuitarEjemplo').onclick = quitarEjemplo;
+  $('#btnRespaldo').onclick = () => descargar(new Blob([JSON.stringify(D(), null, 1)], {type:'application/json'}), `AgroFast_respaldo_${fechaLocal()}.json`);
+  $('#fileRestaurar').addEventListener('change', async e => { const f = e.target.files[0]; if (!f) return; try { const d = JSON.parse(await f.text()); if (!Array.isArray(d.productos)) throw new Error('Archivo no válido'); DB.usar(d); DB.save(); UI.refrescar(); toast('Respaldo restaurado'); } catch (err) { toast('No se pudo restaurar: ' + err.message); } });
+  $('#btnBorrarTodo').onclick = () => { if (confirm('¿Borrar TODOS los datos y volver al catálogo inicial?')) { try { localStorage.removeItem(KEY); } catch (e) {} DB.data = null; DB.load(); UI.refrescar(); toast('Datos reiniciados'); } };
+  if ('speechSynthesis' in window) speechSynthesis.getVoices();
+  if (location.protocol === 'file:') $('#avisoArchivo').hidden = false;
+  if (!Voz.soportado()) $('#micEstado').innerHTML = 'Este navegador no trae reconocimiento de voz: use <b>Chrome</b>, o el micrófono del teclado del celular en el cuadro de texto.';
+  UI.go('inicio');
+}
+window.AgroFast = {NLU, DB, Prop, Acciones, Export, XLSX, Medicion, Bot, UI, cartera};
+document.addEventListener('DOMContentLoaded', init);
+
+</script>
+</body>
+</html>
